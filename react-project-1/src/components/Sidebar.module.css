@@ -1,0 +1,29 @@
+.sidebar{
+    width: 200px;
+    min-height: 580px;
+    background: orange;
+    margin-top: 5px;
+}
+.sidebar .item{
+    color: bisque;
+}
+.item.active{
+    color: darkturquoise;
+}
+@media screen and (max-width:860px) {
+    .sidebar {
+        width: inherit;
+        min-height: 100px;
+        background: orange;
+        margin-top: 5px;
+        padding-right: 10px;
+        text-align: center;
+    }
+}
+@media screen and (max-width:860px) {
+    .sidebar ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

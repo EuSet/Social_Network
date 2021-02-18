@@ -1,13 +1,14 @@
 import React from 'react';
+import s from './Sidebar.module.css';
 
 const Sidebar = () => {
-    return  <div className='sidebar'>
+    return  <div className={s.sidebar}>
         <ul>
-            <li><a href='#'/>Profile</li>
-            <li><a href='#'/>Message</li>
-            <li><a href='#'/>News</li>
-            <li><a href='#'/>Music</li>
-            <li><a href='#'/>Settings</li>
+            <li className={`${s.item} ${s.active}`}><a href='#'/>Profile</li>
+            <li className={s.item}><a href='#'/>Message</li>
+            <li className={s.item}><a href='#'/>News</li>
+            <li className={s.item}><a href='#'/>Music</li>
+            <li className={s.item}><a href='#'/>Settings</li>
         </ul>
     </div>
 }

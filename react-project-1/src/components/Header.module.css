@@ -1,0 +1,5 @@
+.Header{
+    min-height: 50px;
+    background: orange;
+    z-index: 5;
+}

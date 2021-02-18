@@ -1,19 +1,20 @@
 import React from 'react';
+import s from './Profile.module.css';
 
 const Profile = () => {
-    return   <div className='Profile'>
-        <div className='backgroundimg'>
+    return   <div className={s.Profile}>
+        <div className={s.backgroundimg}>
         </div>
-        <div className='ava'>
+        <div className={s.ava}>
             avatar
         </div>
-        <div className='myPosts'>
+        <div className={s.myPosts}>
             myposts
         </div>
-        <div className='newPost'>
+        <div className={s.newPosts}>
             new post
         </div>
-        <div className='post1'>
+        <div className={s.Post1}>
             post1
         </div>
     </div>
