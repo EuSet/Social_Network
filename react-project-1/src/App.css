@@ -1,13 +1,22 @@
-.container{
+.container {
   max-width: 1024px;
   margin: 0 auto;
   min-height: inherit;
 }
-.wrap{
+
+.wrap {
   display: flex;
   justify-content: space-around;
 }
-@media screen and (max-width:860px) {
+
+.content {
+  min-height: 580px;
+  width: 824px;
+  background: burlywood;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 860px) {
   .wrap {
     flex-direction: column;
     justify-content: center;
