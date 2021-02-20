@@ -2,12 +2,15 @@
     width: 200px;
     min-height: 580px;
     background: orange;
-    margin-top: 5px;
 }
 .sidebar .item{
+    list-style-type: none;
+}
+.item a{
+    text-decoration: none;
     color: bisque;
 }
-.item.active{
+.item .activeLink{
     color: darkturquoise;
 }
 @media screen and (max-width:860px) {

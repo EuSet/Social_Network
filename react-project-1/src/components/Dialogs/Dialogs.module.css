@@ -1,0 +1,32 @@
+.Dialogs{
+    display: flex;
+}
+.dialogsItems .item{
+    list-style-type: none;
+}
+.dialogsItems .item.active a{
+    color: darkturquoise;
+}
+.dialogsItems .item a{
+    text-decoration: none;
+    color: bisque;
+}
+.hr{
+    border-left: 1px solid bisque;
+    height: 540px;
+    width: 1px;
+    margin: 20px 0;
+}
+.dialogsItems{
+    width: 30%;
+    padding: 20px;
+}
+.messages{
+    width: 70%;
+    padding: 20px;
+}
+@media screen and (max-width:860px) {
+    .Dialogs{
+        width: inherit;
+    }
+}

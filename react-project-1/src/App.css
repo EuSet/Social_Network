@@ -6,14 +6,13 @@
 
 .wrap {
   display: flex;
-  justify-content: space-around;
+  overflow: hidden;
 }
 
 .content {
   min-height: 580px;
-  width: 824px;
+  width: 100%;
   background: burlywood;
-  margin-top: 5px;
 }
 
 @media screen and (max-width: 860px) {
