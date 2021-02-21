@@ -1,7 +1,8 @@
 .container {
-  max-width: 1024px;
   margin: 0 auto;
   min-height: inherit;
+  max-width: 1200px;
+  font-size: 25px;
 }
 
 .wrap {
@@ -12,7 +13,8 @@
 .content {
   min-height: 580px;
   width: 100%;
-  background: burlywood;
+  background: #ffffff;
+  padding: 0 20px;
 }
 
 @media screen and (max-width: 860px) {

@@ -1,6 +1,11 @@
 .backgroundimg{
     width: inherit;
-    min-height: 200px;
-    background-image: url("../../../img/poland-wroclaw_yhVxPBT.png.jpg");
-    background-size: cover;
+    height: 200px;
+    border-radius: 12px 12px 0 0;
+}
+.backgroundimg img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
 }

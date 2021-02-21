@@ -1,14 +1,27 @@
 .sidebar{
     width: 200px;
     min-height: 580px;
-    background: orange;
+    background: #fff;
 }
 .sidebar .item{
     list-style-type: none;
 }
+.item img{
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+}
 .item a{
     text-decoration: none;
-    color: bisque;
+    color: #5850EC;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+.item a:hover{
+    background: #F5F6F8;
 }
 .item .activeLink{
     color: darkturquoise;

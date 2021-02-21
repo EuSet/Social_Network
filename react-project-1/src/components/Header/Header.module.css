@@ -1,5 +1,9 @@
 .Header{
+    width: 100%;
     min-height: 50px;
-    background: orange;
+    background: #fff;
     margin-bottom: 5px;
+}
+.Header img{
+    padding: 15px;
 }
