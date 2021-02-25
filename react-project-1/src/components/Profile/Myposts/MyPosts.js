@@ -3,12 +3,12 @@ import s from './MyPosts.module.css';
 import NewPost from "./NewPost/NewPost";
 import Posts from "./Posts/Posts";
 
-const MyPosts = () => {
-    return   <div className={s.myPosts}>
+const MyPosts = (props) => {
+    let postsElements = props.state.map(p => <Posts message={p.message} quantityOfLikes={p.quantityOfLikes}/>);
+    return <div className={s.myPosts}>
         myposts
         <NewPost/>
-        <Posts message='Hi, how are you' quantityOfLikes='10'/>
-        <Posts message="It's my first post" quantityOfLikes='17'/>
+        {postsElements}
     </div>
 }
 export default MyPosts;

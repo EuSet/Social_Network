@@ -1,0 +1,14 @@
+.contacts a{
+    text-decoration: none;
+    color: #5850EC;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+.contacts a img{
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+}

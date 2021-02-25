@@ -10,19 +10,21 @@ import Music from "./components/Music/Music";
 import {BrowserRouter, Route} from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 
-function App() {
+function App(props) {
     return (
         <BrowserRouter>
         <div className='container'>
             <Header/>
             <div className='wrap'>
-                <Sidebar/>
+                <Sidebar state={props.state.sidebarPage}/>
                 <div className='content'>
-                    <Route path='/profile' component={Profile}/>
-                    <Route path='/dialogs' component={Dialogs}/>
-                    <Route path='/settings' component={Settings}/>
-                    <Route path='/music' component={Music}/>
-                    <Route path='/feed' component={Feed}/>
+                    <Route path='/profile' render={() => <Profile
+                        state={props.state.profilePage}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs
+                        state={props.state.dialogsPage}/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/feed' render={() => <Feed/>}/>
                 </div>
             </div>
             <Footer/>
