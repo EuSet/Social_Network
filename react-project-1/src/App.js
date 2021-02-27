@@ -17,12 +17,12 @@ function App(props) {
             <Header/>
             <hr/>
             <div className='wrap'>
-                <Sidebar state={props.state.sidebarPage}/>
+                <Sidebar sidebarPage={props.state.sidebarPage}/>
                 <div className='content'>
                     <Route path='/profile' render={() => <Profile
-                        state={props.state.profilePage}/>}/>
+                        profilePage={props.state.profilePage}/>}/>
                     <Route path='/dialogs' render={() => <Dialogs
-                        state={props.state.dialogsPage}/>}/>
+                        dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/feed' render={() => <Feed/>}/>

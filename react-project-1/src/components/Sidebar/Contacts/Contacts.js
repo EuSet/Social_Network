@@ -5,7 +5,7 @@ import Contactsicons from "../../../img/icons8-толпа-48.png"
 
 
 const Contacts = (props) => {
-    let contactsElements = props.state.map(c =>  <NavLink to={'/' + c.id}>
+    let contactsElements = props.contactsData.map(c =>  <NavLink to={'/' + c.id}>
         <div className={s.contactsAvatar}>
             <img src={c.avatar}/>
         </div>

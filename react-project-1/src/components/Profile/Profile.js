@@ -6,7 +6,7 @@ import Posts from "./Myposts/Posts/Posts";
 const Profile = (props) => {
     return <div className={s.Profile}>
        <ProfileInfo/>
-        <MyPosts state={props.state.postsData} />
+        <MyPosts postsData={props.profilePage.postsData} />
     </div>
 }
 export default Profile;

@@ -18,7 +18,7 @@ const Sidebar = (props) => {
             <li className={s.item}><NavLink to='/settings' activeClassName={s.activeLink}><img src={iconSettings}/>Settings</NavLink></li>
         </ul>
         <hr/>
-        <Contacts state={props.state.contactsData}/>
+        <Contacts contactsData={props.sidebarPage.contactsData}/>
     </div>
 }
 
