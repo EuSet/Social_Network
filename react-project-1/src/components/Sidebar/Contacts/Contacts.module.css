@@ -1,14 +1,42 @@
+.contacts{
+    margin-top: 20px;
+}
 .contacts a{
     text-decoration: none;
-    color: #5850EC;
+    color: #666666;
     cursor: pointer;
     display: flex;
     align-items: center;
     border-radius: 10px;
     padding: 0 10px;
 }
-.contacts a img{
+.contactsAvatar img{
     width: 40px;
     height: 40px;
-    padding-right: 10px;
+    border-radius: 20px;
+}
+.contactList a img{
+    width: 40px;
+    height: 40px;
+}
+.contactList{
+    display: flex;
+    align-items: center;
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+.contactsName{
+    font-size: 20px;
+    margin-left: 10px;
+}
+.contacts a:hover{
+    background: #F5F6F8;
+}
+.contacts ul li{
+    list-style-type: none;
+    margin: 10px 0;
+}
+h3{
+    color: #666666;
+    text-align: center;
 }

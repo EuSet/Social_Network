@@ -12,6 +12,9 @@
     height: 40px;
     padding-right: 10px;
 }
+hr{
+    border: 1px solid #e5e7eb;
+}
 .item a{
     text-decoration: none;
     color: #5850EC;

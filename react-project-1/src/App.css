@@ -9,7 +9,9 @@
   display: flex;
   overflow: hidden;
 }
-
+hr{
+  border: 1px solid #e5e7eb;
+}
 .content {
   min-height: 580px;
   width: 100%;

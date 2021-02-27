@@ -15,6 +15,7 @@ function App(props) {
         <BrowserRouter>
         <div className='container'>
             <Header/>
+            <hr/>
             <div className='wrap'>
                 <Sidebar state={props.state.sidebarPage}/>
                 <div className='content'>
