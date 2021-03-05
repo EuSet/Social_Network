@@ -1,17 +1,20 @@
 import React from 'react';
 import s from './NewPost.module.css';
 
-let createNewPost = React.createRef()
-let addPost = () => {
-    let addNewPost = createNewPost.current.value
-    alert(addNewPost)
-}
+const NewPost = (props) => {
+    let createNewPost = React.createRef()
+    let addPost = () => {
+        props.addPost()
+    }
+    let onPostChange = () => {
+        let addNewPost = createNewPost.current.value
+        props.updateNewPostChange(addNewPost)
 
-const NewPost = () => {
+    }
     return <div className={s.newPost}>
-        <textarea ref={createNewPost}/>
-           <button onClick={addPost}>add post</button>
-        </div>
+        <textarea onChange={onPostChange} ref={createNewPost} value={props.newPostText}/>
+        <button onClick={addPost}>add post</button>
+    </div>
 
 }
 export default NewPost;
