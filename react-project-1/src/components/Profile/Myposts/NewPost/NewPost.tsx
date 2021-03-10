@@ -1,8 +1,14 @@
 import React from 'react';
 import s from './NewPost.module.css';
 
-const NewPost = (props) => {
-    let createNewPost = React.createRef()
+type PropsType = {
+    newPostText:string
+    addPost: () => void
+    updateNewPostChange: (newText: string) => void
+}
+
+const NewPost = (props:PropsType) => {
+    let createNewPost:any = React.createRef()
     let addPost = () => {
         props.addPost()
     }

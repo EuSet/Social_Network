@@ -1,13 +1,12 @@
 import React from "react";
-import {rerenderEntireThree} from "../render";
 
-type Contactsdatafriendtype = {
+type ContactsDataFriendType = {
     id:string
     name:string
     avatar:string
 }
-type ContactsDataType = Array<Contactsdatafriendtype>
-type SidebarType = {
+export type ContactsDataType = Array<ContactsDataFriendType>
+export type SidebarType = {
     contactsData:ContactsDataType
 }
 type MessagePostType = {
@@ -16,11 +15,11 @@ type MessagePostType = {
 }
 type NewPostTextType = string
 type PostDataType = Array<MessagePostType>
-type ProfilePageType = {
+export type ProfilePageType = {
     postsData:PostDataType
     newPostText:NewPostTextType
 }
-type MessageDialogsType = {
+export type MessageDialogsType = {
     message:string
     id:number
 }
@@ -30,9 +29,10 @@ type DialogsNameType = {
     id:number
 }
 type DialogsDataType = Array<DialogsNameType>
-type DialogsPageType = {
+export type DialogsPageType = {
     dialogsData:DialogsDataType
     messagesData:MessageDataType
+    messageText:string
 }
 export type StateType = {
     dialogsPage:DialogsPageType
@@ -40,56 +40,80 @@ export type StateType = {
     sidebarPage:SidebarType
 }
 
-
-export let state = {
-    dialogsPage:{
-        dialogsData:[
-            {name:'Andrey', id:1},
-            {name:'Eugene', id:2},
-            {name:'Dimych', id:3},
-            {name:'Diana', id:4}
-        ],
-        messagesData:[
-            {message:'Hi', id:0},
-            {message:'How are you', id:1},
-            {message:'im here', id:2}
-        ]
+export let store = {
+    _state: {
+        dialogsPage: {
+            dialogsData: [
+                {name: 'Andrey', id: 1},
+                {name: 'Eugene', id: 2},
+                {name: 'Dimych', id: 3},
+                {name: 'Diana', id: 4}
+            ],
+            messagesData: [
+                {message: 'Hi', id: 0},
+                {message: 'How are you', id: 1},
+                {message: 'im here', id: 2}
+            ],
+            messageText: ''
+        },
+        profilePage: {
+            postsData: [
+                {message: 'Hi, how are you', quantityOfLikes: 10},
+                {message: 'It\'s my first post', quantityOfLikes: 17},
+            ],
+            newPostText: ''
+        },
+        sidebarPage: {
+            contactsData: [
+                {
+                    id: 'andrey',
+                    name: 'Andrey Petrov',
+                    avatar: 'https://sun9-55.userapi.com/impf/c853424/v853424997/ac872/cW5Jd0rrnZA.jpg?size=1080x1080&quality=96&proxy=1&sign=4d8c145dab34bc22a5da2335cd143436&type=album'
+                },
+                {
+                    id: 'andrey',
+                    name: 'Dmitry Ivanov',
+                    avatar: 'http://demo.foxthemes.net/socialitev2.0/assets/images/avatars/avatar-8.jpg'
+                }
+            ]
+        }
     },
-    profilePage:{
-        postsData:[
-            {message: 'Hi, how are you', quantityOfLikes: 10},
-            {message: 'It\'s my first post', quantityOfLikes: 17},
-        ],
-        newPostText: ''
+    getState() {
+        return this._state
     },
-    sidebarPage:{
-        contactsData:[
-            {
-                id: 'andrey',
-                name: 'Andrey Petrov',
-                avatar:  'https://sun9-55.userapi.com/impf/c853424/v853424997/ac872/cW5Jd0rrnZA.jpg?size=1080x1080&quality=96&proxy=1&sign=4d8c145dab34bc22a5da2335cd143436&type=album'
-            },
-            {
-                id: 'andrey',
-                name: 'Dmitry Ivanov',
-                avatar: 'http://demo.foxthemes.net/socialitev2.0/assets/images/avatars/avatar-8.jpg'
-            }
-        ]
+    _callSubscriber() {
+
+    },
+    addPost() {
+        let newPost = {
+            message: this._state.profilePage.newPostText,
+            quantityOfLikes: 0
+        }
+
+        this._state.profilePage.postsData.push(newPost);
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    updateNewPostChange(newText: string) {
+        this._state.profilePage.newPostText = newText
+        this._callSubscriber()
+    },
+    updateNewMessageText(newTextMessage: string) {
+        this._state.dialogsPage.messageText = newTextMessage
+        this._callSubscriber()
+    },
+    addDialogsMessage() {
+        let newDialogMessage = {
+            message: this._state.dialogsPage.messageText,
+            id: this._state.dialogsPage.messagesData.length + 1
+        }
+        this._state.dialogsPage.messagesData.push(newDialogMessage)
+        this._state.dialogsPage.messageText = ''
+        this._callSubscriber()
+    },
+    subscribe(observer:() => void) {
+        this._callSubscriber = observer
+        console.log('function called')
+
     }
-}
-
-export let addPost = () =>{
-    let newPost = {
-        message: state.profilePage.newPostText,
-        quantityOfLikes:0
-    }
-
-    state.profilePage.postsData.push(newPost);
-    state.profilePage.newPostText = ''
-     rerenderEntireThree(state)
-}
-
-export let updateNewPostChange = (newText:string) =>{
-    state.profilePage.newPostText = newText
-    rerenderEntireThree(state)
 }

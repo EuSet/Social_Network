@@ -2,9 +2,15 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import NewPost from "./NewPost/NewPost";
 import Posts from "./Posts/Posts";
-import {addPost} from "../../../redux/State";
+import {ProfilePageType} from "../../../redux/State";
 
-const MyPosts = (props) => {
+type PropsType = {
+    profilePage: ProfilePageType
+    addPost: () => void
+    updateNewPostChange: (newText: string) => void
+}
+
+const MyPosts = (props:PropsType) => {
     let postsElements = props.profilePage.postsData.map(p => <Posts message={p.message} quantityOfLikes={p.quantityOfLikes}/>);
     return <div className={s.myPosts}>
         myposts

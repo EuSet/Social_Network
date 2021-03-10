@@ -8,9 +8,15 @@ import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
 import {BrowserRouter, Route} from "react-router-dom";
 import Feed from "./components/Feed/Feed";
-import {PropsType} from "./render";
+import {StateType} from "./redux/State";
 
-
+export type PropsType = {
+    addPost: () => void
+    addDialogsMessage: () => void
+    updateNewPostChange: (newText:string) => void
+    updateNewMessageText: (newTextMessage:string) => void
+    state:StateType
+}
 function App(props:PropsType) {
     return (
         <BrowserRouter>
@@ -26,7 +32,10 @@ function App(props:PropsType) {
                         updateNewPostChange={props.updateNewPostChange}
                     />}/>
                     <Route path='/dialogs' render={() => <Dialogs
-                        dialogsPage={props.state.dialogsPage}/>}/>
+                        dialogsPage={props.state.dialogsPage}
+                        addDialogsMessage={props.addDialogsMessage}
+                        updateNewMessageText={props.updateNewMessageText}
+                    />}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/feed' render={() => <Feed/>}/>
