@@ -9,7 +9,7 @@ export type ContactsDataType = Array<ContactsDataFriendType>
 export type SidebarType = {
     contactsData:ContactsDataType
 }
-type MessagePostType = {
+export type MessagePostType = {
     message:string
     quantityOfLikes:number
 }
@@ -23,7 +23,7 @@ export type MessageDialogsType = {
     message:string
     id:number
 }
-type MessageDataType = Array<MessageDialogsType>
+export type MessageDataType = Array<MessageDialogsType>
 type DialogsNameType = {
     name:string
     id:number
@@ -38,6 +38,24 @@ export type StateType = {
     dialogsPage:DialogsPageType
     profilePage:ProfilePageType
     sidebarPage:SidebarType
+}
+
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'
+const UPDATE_NEW_MESSAGE_CHANGE = 'UPDATE-NEW-MESSAGE-CHANGE'
+const ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE'
+
+export const addPostCreateActions = () => {
+    return {type:ADD_POST}
+}
+export const onPostChangeCreateAction = (addNewPost:string) => {
+    return {type:UPDATE_NEW_POST_CHANGE, newText: addNewPost}
+}
+export const onMessageChangeCreateAction = (addNewMessage:string) => {
+    return {type:UPDATE_NEW_MESSAGE_CHANGE, newMessage: addNewMessage}
+}
+export const addNewMessageCreateActions = () => {
+    return {type:ADD_DIALOGS_MESSAGE}
 }
 
 export let store = {
@@ -84,7 +102,7 @@ export let store = {
     _callSubscriber() {
 
     },
-    addPost() {
+    _addPost() {
         let newPost = {
             message: this._state.profilePage.newPostText,
             quantityOfLikes: 0
@@ -94,15 +112,15 @@ export let store = {
         this._state.profilePage.newPostText = ''
         this._callSubscriber()
     },
-    updateNewPostChange(newText: string) {
+    _updateNewPostChange(newText: string) {
         this._state.profilePage.newPostText = newText
         this._callSubscriber()
     },
-    updateNewMessageText(newTextMessage: string) {
-        this._state.dialogsPage.messageText = newTextMessage
+    _updateNewMessageChange(newMessageText: string) {
+        this._state.dialogsPage.messageText = newMessageText
         this._callSubscriber()
     },
-    addDialogsMessage() {
+    _addDialogsMessage() {
         let newDialogMessage = {
             message: this._state.dialogsPage.messageText,
             id: this._state.dialogsPage.messagesData.length + 1
@@ -115,5 +133,16 @@ export let store = {
         this._callSubscriber = observer
         console.log('function called')
 
+    },
+    dispatch(action:any){
+        if(action.type === 'ADD-POST'){
+            this._addPost()
+        } else if(action.type === 'UPDATE-NEW-POST-CHANGE'){
+            this._updateNewPostChange(action.newText)
+        } else if(action.type === 'ADD-DIALOGS-MESSAGE'){
+            this._addDialogsMessage()
+        } else if(action.type === 'UPDATE-NEW-MESSAGE-CHANGE'){
+            this._updateNewMessageChange(action.newMessage)
+        }
     }
 }

@@ -11,10 +11,7 @@ import Feed from "./components/Feed/Feed";
 import {StateType} from "./redux/State";
 
 export type PropsType = {
-    addPost: () => void
-    addDialogsMessage: () => void
-    updateNewPostChange: (newText:string) => void
-    updateNewMessageText: (newTextMessage:string) => void
+    dispatch: (action:any) => void
     state:StateType
 }
 function App(props:PropsType) {
@@ -28,13 +25,11 @@ function App(props:PropsType) {
                 <div className='content'>
                     <Route path='/profile' render={() => <Profile
                         profilePage={props.state.profilePage}
-                        addPost={props.addPost}
-                        updateNewPostChange={props.updateNewPostChange}
+                        dispatch={props.dispatch}
                     />}/>
                     <Route path='/dialogs' render={() => <Dialogs
                         dialogsPage={props.state.dialogsPage}
-                        addDialogsMessage={props.addDialogsMessage}
-                        updateNewMessageText={props.updateNewMessageText}
+                        dispatch={props.dispatch}
                     />}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/music' render={() => <Music/>}/>

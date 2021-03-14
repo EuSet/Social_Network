@@ -1,20 +1,21 @@
 import React from 'react';
 import s from './NewPost.module.css';
+import {addPostCreateActions, onPostChangeCreateAction} from "../../../../redux/State";
 
 type PropsType = {
     newPostText:string
-    addPost: () => void
-    updateNewPostChange: (newText: string) => void
+    dispatch: (action:any) => void
 }
+
 
 const NewPost = (props:PropsType) => {
     let createNewPost:any = React.createRef()
     let addPost = () => {
-        props.addPost()
+        props.dispatch(addPostCreateActions())
     }
     let onPostChange = () => {
         let addNewPost = createNewPost.current.value
-        props.updateNewPostChange(addNewPost)
+        props.dispatch(onPostChangeCreateAction(addNewPost))
 
     }
     return <div className={s.newPost}>

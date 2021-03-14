@@ -1,28 +1,31 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import Dialogitems from "./Dialogitems/Dialogitems";
-import {DialogsPageType} from "../../redux/State";
+import {
+    addNewMessageCreateActions,
+    DialogsPageType, onMessageChangeCreateAction
+} from "../../redux/State";
 
 
 type PropsType = {
-    dialogsPage:DialogsPageType
-    addDialogsMessage:() => void
-    updateNewMessageText: (newTextMessage: string) => void
+    dialogsPage: DialogsPageType
+    dispatch: (action: any) => void
 }
-const Dialogs = (props:PropsType) => {
-    let newMessage:any = React.createRef()
+
+const Dialogs = (props: PropsType) => {
     let addNewMessage = () => {
-        props.addDialogsMessage()
+        props.dispatch(addNewMessageCreateActions())
     }
-    let onMessageChange = () => {
-        let addMessage = newMessage.current.value
-        props.updateNewMessageText(addMessage)
+    let messageBody = props.dialogsPage.messageText
+    let onMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        messageBody = e.target.value
+        props.dispatch(onMessageChangeCreateAction(messageBody))
     }
+
 
     let dialogsElements = props.dialogsPage.dialogsData.map(d => <Dialogitems name={d.name} id={d.id}/>);
-    let messagesElements = props.dialogsPage.messagesData.map( m => <Message id={m.id} message={m.message}/>);
-
+    let messagesElements = props.dialogsPage.messagesData.map(m => <Message id={m.id} message={m.message}/>);
 
     return <div className={s.Dialogs}>
         <div className={s.dialogsItems}>
@@ -33,8 +36,8 @@ const Dialogs = (props:PropsType) => {
         <div className={s.messages}>
             {messagesElements}
             <div>
-                <textarea onChange={onMessageChange} ref={newMessage} value={props.dialogsPage.messageText}/>
-                <button onClick={addNewMessage}>add message</button>
+                <textarea onChange={onMessageChange} value={messageBody}/>
+                <button onClick={() => {addNewMessage()}}>add message</button>
             </div>
         </div>
     </div>
