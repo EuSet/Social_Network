@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Contacts.module.css';
 import {NavLink} from "react-router-dom";
 import Contactsicons from "../../../img/icons8-толпа-48.png"
-import {ContactsDataType} from "../../../redux/State";
+import {ContactsDataType} from "../../../redux/Store";
 
 type PropsType = {
     contactsData:ContactsDataType

@@ -6,14 +6,9 @@ import iconMessages from '../../img/icons8-облачко-с-мыслями-48.p
 import iconProfile from '../../img/icons8-войти-как-пользователь-48 (1).png';
 import iconSettings from '../../img/icons8-fingerprint-settings-64.png';
 import iconNews from '../../img/icons8-новости-48.png';
-import Contacts from "./Contacts/Contacts";
-import {SidebarType} from "../../redux/State";
+import ContactsContainer from "./Contacts/ContactsContainer";
 
-type PropsType = {
-    sidebarPage: SidebarType
-}
-
-const Sidebar = (props: PropsType) => {
+const Sidebar = () => {
     return <div className={s.sidebar}>
         <ul>
             <li className={s.item}><NavLink to='/profile' activeClassName={s.activeLink}><img src={iconProfile}/>Profile</NavLink>
@@ -28,7 +23,7 @@ const Sidebar = (props: PropsType) => {
             </li>
         </ul>
         <hr/>
-        <Contacts contactsData={props.sidebarPage.contactsData}/>
+        <ContactsContainer/>
     </div>
 }
 

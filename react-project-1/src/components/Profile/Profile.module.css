@@ -1,8 +1,6 @@
 .Profile .backgroundimg{
     width: inherit;
     min-height: 200px;
-    background-image: url("../../img/poland-wroclaw_yhVxPBT.png.jpg");
-    background-size: cover;
 }
 
 @media screen and (max-width:860px) {
