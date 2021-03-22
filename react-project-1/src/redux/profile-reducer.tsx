@@ -1,5 +1,15 @@
 import React from "react";
-import {ProfilePageType} from "./Store";
+
+export type ProfilePageType = {
+    postsData: PostDataType
+    newPostText: NewPostTextType
+}
+export type PostDataType = Array<MessagePostType>
+type MessagePostType = {
+    message: string
+    quantityOfLikes: number
+}
+type NewPostTextType = string
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'

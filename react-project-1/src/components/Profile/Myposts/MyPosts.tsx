@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Posts from "./Posts/Posts";
-import {PostDataType} from "../../../redux/Store";
 import NewPostContainer from "./NewPost/NewPostContainer";
+import {PostDataType} from "../../../redux/profile-reducer";
 
 type PropsType = {
     postsData: PostDataType

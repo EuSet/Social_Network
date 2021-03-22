@@ -1,12 +1,12 @@
 import React from 'react';
 import s from './Sidebar.module.css';
-import {NavLink} from "react-router-dom";
+import {NavLink, Route} from "react-router-dom";
 import iconMusic from '../../img/icons8-микрофон-64.png';
 import iconMessages from '../../img/icons8-облачко-с-мыслями-48.png';
 import iconProfile from '../../img/icons8-войти-как-пользователь-48 (1).png';
 import iconSettings from '../../img/icons8-fingerprint-settings-64.png';
 import iconNews from '../../img/icons8-новости-48.png';
-import ContactsContainer from "./Contacts/ContactsContainer";
+import ContactsSideBar from "./Contacts/ContactsSideBar";
 
 const Sidebar = () => {
     return <div className={s.sidebar}>
@@ -23,7 +23,7 @@ const Sidebar = () => {
             </li>
         </ul>
         <hr/>
-        <ContactsContainer/>
+        <ContactsSideBar/>
     </div>
 }
 

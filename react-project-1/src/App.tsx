@@ -8,6 +8,8 @@ import Music from "./components/Music/Music";
 import {BrowserRouter, Route} from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import React from "react";
+import ContactsContainer from "./components/Contacts/ContactsContainer";
 
 function App() {
     return (
@@ -23,6 +25,7 @@ function App() {
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/feed' render={() => <Feed/>}/>
+                    <Route path='/contacts' render={() => <ContactsContainer/>}/>
                 </div>
             </div>
             <Footer/>

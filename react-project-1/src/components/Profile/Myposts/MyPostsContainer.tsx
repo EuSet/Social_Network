@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import MyPosts from "./MyPosts";
-import {StateType} from "../../../redux/Store";
+import {StateType} from "../../../redux/redux-store";
 
 
 

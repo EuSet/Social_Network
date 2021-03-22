@@ -1,5 +1,20 @@
 import React from "react";
-import {DialogsPageType} from "./Store";
+
+export type DialogsPageType = {
+    dialogsData: DialogsDataType
+    messagesData: MessageDataType
+    messageText: string
+}
+type MessageDataType = Array<MessageDialogsType>
+type MessageDialogsType = {
+    message: string
+    id: number
+}
+type DialogsDataType = Array<DialogsNameType>
+type DialogsNameType = {
+    name: string
+    id: number
+}
 
 const UPDATE_NEW_MESSAGE_CHANGE = 'UPDATE-NEW-MESSAGE-CHANGE'
 const ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE'
