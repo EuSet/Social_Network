@@ -5,7 +5,7 @@ import Dialogitems from "./Dialogitems/Dialogitems";
 import {DialogsPageType} from "../../redux/dialogs-reducer";
 
 
-type PropsType = {
+export type PropsType = {
     dialogsPage: DialogsPageType
     addNewMessage:() => void
     onNewMessageChange:(messageBody:string) => void

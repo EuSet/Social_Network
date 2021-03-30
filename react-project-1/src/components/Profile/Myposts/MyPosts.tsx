@@ -4,7 +4,7 @@ import Posts from "./Posts/Posts";
 import NewPostContainer from "./NewPost/NewPostContainer";
 import {PostDataType} from "../../../redux/profile-reducer";
 
-type PropsType = {
+export type PropsType = {
     postsData: PostDataType
 }
 

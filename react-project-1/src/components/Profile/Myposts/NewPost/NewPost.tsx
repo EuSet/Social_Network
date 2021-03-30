@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import s from './NewPost.module.css';
 
-type PropsType = {
+export type PropsType = {
     newPostText:string
     addPost:() => void
     onPostChange:(addNewPost:string) => void
