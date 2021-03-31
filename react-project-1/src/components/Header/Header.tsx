@@ -1,9 +1,10 @@
 import React from 'react';
 import s from './Header.module.css';
+import logo from './../../img/logo.png';
 
 const Header = () => {
     return  <div className={s.Header}>
-        <img src='http://demo.foxthemes.net/socialitev2.0/assets/images/logo.png' />
+        <img src={logo} alt={'#'} />
     </div>
 }
 
