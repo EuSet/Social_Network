@@ -1,11 +1,12 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
+import profileCover from './../../../img/profile-cover.jpg'
 
 
 const ProfileInfo = () => {
     return <div>
         <div className={s.backgroundimg}>
-            <img src='http://demo.foxthemes.net/socialitev2.0/assets/images/avatars/profile-cover.jpg'/>
+            <img src={profileCover} alt={'#'}/>
         </div>
         <div className={s.ava}>
             avatar
