@@ -1,5 +1,8 @@
 import React from 'react';
-import {addPostCreateActions, onPostChangeCreateAction} from "../../../../redux/profile-reducer";
+import {
+    addPostCreateActions,
+    onPostChangeCreateAction, ProfileActionType,
+} from "../../../../redux/profile-reducer";
 import NewPost from "./NewPost";
 import {connect} from "react-redux";
 import {StateType} from "../../../../redux/redux-store";
@@ -9,7 +12,7 @@ const mapStateToProps = (state:StateType) => {
         newPostText: state.profilePage.newPostText
     }
 }
-const mapDispatchToProps = (dispatch:(action:any) => void) => {
+const mapDispatchToProps = (dispatch:(action:ProfileActionType) => void) => {
     return {
         addPost: () => {
             dispatch(addPostCreateActions())

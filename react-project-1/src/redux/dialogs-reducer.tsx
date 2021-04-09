@@ -15,6 +15,7 @@ type DialogsNameType = {
     name: string
     id: number
 }
+export type DialogsActionType = ReturnType<typeof onMessageChangeCreateAction> | ReturnType<typeof addNewMessageCreateActions>
 
 const UPDATE_NEW_MESSAGE_CHANGE = 'UPDATE-NEW-MESSAGE-CHANGE'
 const ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE'

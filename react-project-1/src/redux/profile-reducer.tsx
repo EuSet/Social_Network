@@ -10,6 +10,8 @@ type MessagePostType = {
     quantityOfLikes: number
 }
 type NewPostTextType = string
+export type ProfileActionType = ReturnType<typeof addPostCreateActions> | ReturnType<typeof onPostChangeCreateAction>
+
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'
@@ -22,7 +24,7 @@ const inintialState = {
         newPostText: ''
 }
 
-const profileReducer = (state: ProfilePageType = inintialState, action: any) => {
+const profileReducer = (state: ProfilePageType = inintialState, action: ProfileActionType) => {
     switch (action.type) {
         case 'ADD-POST':
             let newPost = {
@@ -45,10 +47,10 @@ const profileReducer = (state: ProfilePageType = inintialState, action: any) => 
 }
 
 export const addPostCreateActions = () => {
-    return {type: ADD_POST}
+    return {type: ADD_POST} as const
 }
 export const onPostChangeCreateAction = (createNewPost: string) => {
-    return {type: UPDATE_NEW_POST_CHANGE, newText: createNewPost}
+    return {type: UPDATE_NEW_POST_CHANGE, newText: createNewPost} as const
 }
 export default profileReducer;
 
