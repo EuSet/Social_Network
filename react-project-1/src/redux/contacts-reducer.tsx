@@ -5,6 +5,7 @@ export type ContactsPageType = {
     pageSize: number
     totalCount: number
     currentPage: number
+    togglePreloader: boolean
 }
 export type ContactsDataType = Array<ContactsDataFriendType>
 export type ContactsDataFriendType = {
@@ -24,18 +25,21 @@ export type ContactsActionType =
     | ReturnType<typeof setContactsAC>
     | ReturnType<typeof setCurrentCountCA>
     | ReturnType<typeof setTotalCountContactsCA>
+    | ReturnType<typeof togglePreloader>
 
 const initialState: ContactsPageType = {
 
     contactsData: [],
     pageSize: 5,
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    togglePreloader: false
 }
 const FOLLOW = 'FOLLOW'
 const SET_CONTACTS = 'SET_CONTACTS'
 const SET_CURRENT_COUNT = 'SET_CURRENT_COUNT'
 const SET_TOTAL_COUNT_CONTACTS = 'SET_TOTAL_COUNT_CONTACTS'
+const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER'
 const contactsReducer = (state: ContactsPageType = initialState, action: any) => {
     switch (action.type) {
         case FOLLOW:
@@ -54,6 +58,8 @@ const contactsReducer = (state: ContactsPageType = initialState, action: any) =>
             return {...state, currentPage: action.newCurrentPage}
         case SET_TOTAL_COUNT_CONTACTS:
             return {...state, totalCount: action.totalCount}
+        case TOGGLE_PRELOADER:
+            return {...state, togglePreloader: action.toggle}
         default:
             return state
     }
@@ -69,6 +75,9 @@ export const setCurrentCountCA = (count: number) => {
 }
 export const setTotalCountContactsCA = (totalCount: number) => {
     return {type: SET_TOTAL_COUNT_CONTACTS, totalCount}
+}
+export const togglePreloader = (toggle: boolean) => {
+    return {type: TOGGLE_PRELOADER, toggle}
 }
 
 export default contactsReducer;
