@@ -1,8 +1,18 @@
-import React from "react";
+import {ContactsDataFriendType} from "./contacts-reducer";
 
 export type ProfilePageType = {
     postsData: PostDataType
     newPostText: NewPostTextType
+    profile: profileType | null
+}
+export type profileType = {
+    aboutMe: string
+    contacts: { facebook: string, website: null, vk: string, twitter: string, instagram: string }
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    photos: { small: string, large: string }
+    userId: number
 }
 export type PostDataType = Array<MessagePostType>
 type MessagePostType = {
@@ -10,18 +20,22 @@ type MessagePostType = {
     quantityOfLikes: number
 }
 type NewPostTextType = string
-export type ProfileActionType = ReturnType<typeof addPostCreateActions> | ReturnType<typeof onPostChangeCreateAction>
+export type ProfileActionType = ReturnType<typeof addPostCreateActions>
+    | ReturnType<typeof onPostChangeCreateAction>
+    | ReturnType<typeof setProfile>
 
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'
+const SET_PROFILE = 'SET_PROFILE'
 
 const inintialState = {
     postsData: [
         {message: 'Hi, how are you', quantityOfLikes: 10},
         {message: 'It\'s my first post', quantityOfLikes: 17},
     ],
-        newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 const profileReducer = (state: ProfilePageType = inintialState, action: ProfileActionType) => {
@@ -33,13 +47,18 @@ const profileReducer = (state: ProfilePageType = inintialState, action: ProfileA
             }
             return {
                 ...state,
-                postsData:[...state.postsData,newPost],
-                newPostText:state.newPostText = ''
+                postsData: [...state.postsData, newPost],
+                newPostText: state.newPostText = ''
             }
         case 'UPDATE-NEW-POST-CHANGE':
             return {
                 ...state,
-                newPostText:action.newText
+                newPostText: action.newText
+            }
+        case SET_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
             }
         default:
             return state
@@ -51,6 +70,9 @@ export const addPostCreateActions = () => {
 }
 export const onPostChangeCreateAction = (createNewPost: string) => {
     return {type: UPDATE_NEW_POST_CHANGE, newText: createNewPost} as const
+}
+export const setProfile = (profile: ContactsDataFriendType) => {
+    return {type: SET_PROFILE, profile} as const
 }
 export default profileReducer;
 

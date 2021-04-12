@@ -1,5 +1,3 @@
-import React from "react";
-
 export type DialogsPageType = {
     dialogsData: DialogsDataType
     messagesData: MessageDataType
@@ -15,27 +13,27 @@ type DialogsNameType = {
     name: string
     id: number
 }
-export type DialogsActionType = ReturnType<typeof onMessageChangeCreateAction> | ReturnType<typeof addNewMessageCreateActions>
+export type DialogsActionType = ReturnType<typeof onNewMessageChange> | ReturnType<typeof addNewMessage>
 
 const UPDATE_NEW_MESSAGE_CHANGE = 'UPDATE-NEW-MESSAGE-CHANGE'
 const ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE'
 
 const initialState = {
-        dialogsData: [
-            {name: 'Andrey', id: 1},
-            {name: 'Eugene', id: 2},
-            {name: 'Dimych', id: 3},
-            {name: 'Diana', id: 4}
-        ],
-        messagesData: [
-            {message: 'Hi', id: 0},
-            {message: 'How are you', id: 1},
-            {message: 'im here', id: 2}
-        ],
-        messageText: ''
-    }
+    dialogsData: [
+        {name: 'Andrey', id: 1},
+        {name: 'Eugene', id: 2},
+        {name: 'Dimych', id: 3},
+        {name: 'Diana', id: 4}
+    ],
+    messagesData: [
+        {message: 'Hi', id: 0},
+        {message: 'How are you', id: 1},
+        {message: 'im here', id: 2}
+    ],
+    messageText: ''
+}
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: any) => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionType) => {
     switch (action.type) {
         case 'ADD-DIALOGS-MESSAGE':
             let newDialogMessage = {
@@ -44,23 +42,23 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: any) => {
             }
             return {
                 ...state,
-                messagesData:[...state.messagesData,newDialogMessage],
+                messagesData: [...state.messagesData, newDialogMessage],
                 messageText: state.messageText = ''
             }
         case 'UPDATE-NEW-MESSAGE-CHANGE':
             return {
                 ...state,
-                messageText:action.newMessage
+                messageText: action.newMessage
             }
         default:
             return state
     }
 }
 
-export const onMessageChangeCreateAction = (addNewMessage: string) => {
-    return {type: UPDATE_NEW_MESSAGE_CHANGE, newMessage: addNewMessage}
+export const onNewMessageChange = (addNewMessage: string) => {
+    return {type: UPDATE_NEW_MESSAGE_CHANGE, newMessage: addNewMessage} as const
 }
-export const addNewMessageCreateActions = () => {
-    return {type: ADD_DIALOGS_MESSAGE}
+export const addNewMessage = () => {
+    return {type: ADD_DIALOGS_MESSAGE} as const
 }
 export default dialogsReducer;

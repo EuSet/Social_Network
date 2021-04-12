@@ -1,12 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    ContactsActionType,
-    ContactsDataType,
-    followCA,
-    setContactsAC,
-    setCurrentCountCA,
-    setTotalCountContactsCA, togglePreloader
+    followNewContact,
+    setContacts,
+    setCurrentCount,
+    setTogglePreloader,
+    setTotalCountContacts
 } from "../../redux/contacts-reducer";
 import {StateType} from "../../redux/redux-store";
 import axios from "axios";
@@ -14,15 +13,16 @@ import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader";
 
 
-const mapStateToProps = (state:StateType) => {
+const mapStateToProps = (state: StateType) => {
     return {
         contactsData: state.contactsPage.contactsData,
-        pageSize:state.contactsPage.pageSize,
-        totalCount:state.contactsPage.totalCount,
-        currentPage:state.contactsPage.currentPage,
-        togglePreloader:state.contactsPage.togglePreloader
+        pageSize: state.contactsPage.pageSize,
+        totalCount: state.contactsPage.totalCount,
+        currentPage: state.contactsPage.currentPage,
+        togglePreloader: state.contactsPage.togglePreloader
     }
 }
+
 class UsersClassContainer extends React.Component<any, any> {
     // constructor(props: any) {
     //     super(props);
@@ -58,26 +58,32 @@ class UsersClassContainer extends React.Component<any, any> {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action:ContactsActionType) => void) => {
-    return {
-        followNewContact: (id: number) => {
-            dispatch(followCA(id))
-        },
-        setContacts: (contacts:ContactsDataType) => {
-            dispatch(setContactsAC(contacts))
-        },
-        setCurrentCount: (count:number) => {
-            dispatch(setCurrentCountCA(count))
-        },
-        setTotalCountContacts: (totalCount:number) => {
-            dispatch(setTotalCountContactsCA(totalCount))
-        },
-        setTogglePreloader: (toggle:boolean) => {
-            dispatch(togglePreloader(toggle))
-        }
-    }
-}
+// const mapDispatchToProps = (dispatch: (action: ContactsActionType) => void) => {
+//     return {
+//         followNewContact: (id: number) => {
+//             dispatch(followNewContact(id))
+//         },
+//         setContacts: (contacts: ContactsDataType) => {
+//             dispatch(setContacts(contacts))
+//         },
+//         setCurrentCount: (count: number) => {
+//             dispatch(setCurrentCount(count))
+//         },
+//         setTotalCountContacts: (totalCount: number) => {
+//             dispatch(setTotalCountContacts(totalCount))
+//         },
+//         setTogglePreloader: (toggle: boolean) => {
+//             dispatch(setTogglePreloader(toggle))
+//         }
+//     }
+// }
 
-const ContactsContainer = connect(mapStateToProps,mapDispatchToProps)(UsersClassContainer)
+const ContactsContainer = connect(mapStateToProps, {
+    setTogglePreloader,
+    setTotalCountContacts,
+    setCurrentCount,
+    setContacts,
+    followNewContact
+})(UsersClassContainer)
 
 export default ContactsContainer

@@ -4,16 +4,16 @@ import {ContactsDataFriendType, ContactsDataType} from "../../redux/contacts-red
 import {NavLink} from "react-router-dom";
 import ContactsAvatar from "../../img/icons8-профиль-кошки-96.png";
 
-type PropsType = {
+export type PropsType = {
     contactsData: ContactsDataType
     pageSize: number
     totalCount: number
     currentPage: number
     followNewContact: (id: number) => void
-    onPageChanged: (count:number) => void
+    onPageChanged: (count: number) => void
 }
 
-export const Users = (props:PropsType) => {
+export const Users = (props: PropsType) => {
     let pageCount = Math.ceil(props.totalCount / props.pageSize)
     let pages: Array<number> = []
     for (let i = 1; i <= pageCount; i++) {
@@ -23,14 +23,15 @@ export const Users = (props:PropsType) => {
     return <div className={s.contacts}>
         <div>
             {pages.map(p => {
-                return props.currentPage + 3 > p && props.currentPage - 2 < p  ? <span onClick={() => props.onPageChanged(p)}
-                                                                                                 className={props.currentPage === p ? s.currentPage : ''}>{p} </span> : ''
+                return props.currentPage + 3 > p && props.currentPage - 2 < p ?
+                    <span onClick={() => props.onPageChanged(p)}
+                          className={props.currentPage === p ? s.currentPage : ''}>{p} </span> : ''
             })}
         </div>
         {props.contactsData.map((c: ContactsDataFriendType) => <div>
-                <NavLink to={'/' + c.id}>
+                <NavLink to={'profile/' + c.id}>
                     <div className={s.contactsAvatar}>
-                        <img src={c.photos.large ? c.photos.large : ContactsAvatar}/>
+                        <img src={c.photos.large ? c.photos.large : ContactsAvatar} alt={'#'}/>
                     </div>
                     <div className={s.contactsName}>
                         {c.name}

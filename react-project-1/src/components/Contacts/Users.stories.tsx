@@ -1,16 +1,16 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
-import Contacts, {PropsType} from "./Contacts";
+import {Story} from '@storybook/react/types-6-0';
+import {PropsType, Users} from "./Users";
 import {MemoryRouter} from 'react-router-dom';
 import {action} from "@storybook/addon-actions";
 
 
 export default {
-    title: 'Contacts',
-    component: Contacts ,
+    title: 'Users',
+    component: Users ,
 }
 
-const Template: Story<PropsType> = (args) => <MemoryRouter><Contacts {...args}/></MemoryRouter>;
+const Template: Story<PropsType> = (args) => <MemoryRouter><Users {...args}/></MemoryRouter>;
 const callback = action('click on follow/unfollow button')
 export const ContactsStory = Template.bind({});
 ContactsStory.args = {
