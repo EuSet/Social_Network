@@ -1,5 +1,4 @@
 import './App.css';
-import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Footer from "./components/Footer/Footer";
 import Settings from "./components/Settings/Settings";
@@ -10,12 +9,13 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import React from "react";
 import ContactsContainer from "./components/Contacts/ContactsContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {HeaderContainer} from "./components/Header/HeaderContainer";
 
 function App() {
     return (
         <BrowserRouter>
         <div className='container'>
-            <Header/>
+            <HeaderContainer/>
             <hr/>
             <div className='wrap'>
                 <Sidebar />

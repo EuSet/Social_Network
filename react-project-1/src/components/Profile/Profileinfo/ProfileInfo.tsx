@@ -6,7 +6,6 @@ export type PropsType = {
     profile:profileType | null
 }
 const ProfileInfo = (props:PropsType) => {
-    debugger
      return  <div>
         <div className={s.backgroundimg}>
             <img src={profileCover} alt={'#'}/>
