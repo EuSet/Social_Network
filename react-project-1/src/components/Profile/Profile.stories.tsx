@@ -1,6 +1,6 @@
 import React from 'react';
 import {MemoryRouter} from 'react-router-dom';
-import Profile from "./Profile";
+import Profile, {PropsType} from "./Profile";
 import {Provider} from "react-redux";
 import {store} from "../../redux/redux-store";
 
@@ -10,6 +10,6 @@ export default {
     component: Profile,
 }
 
-export const Template = () => <Provider store={store}><MemoryRouter><Profile/></MemoryRouter></Provider>;
+export const Template = (props:PropsType) => <Provider store={store}><MemoryRouter><Profile profile={props.profile}/></MemoryRouter></Provider>;
 
 

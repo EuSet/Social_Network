@@ -1,6 +1,6 @@
 import React from 'react';
 import {MemoryRouter} from 'react-router-dom';
-import ProfileInfo from "./ProfileInfo";
+import ProfileInfo, {PropsType} from "./ProfileInfo";
 
 
 export default {
@@ -8,4 +8,4 @@ export default {
     component: ProfileInfo,
 }
 
-export const Template = () => <MemoryRouter><ProfileInfo/></MemoryRouter>;
+export const Template = (props:PropsType) => <MemoryRouter><ProfileInfo profile={props.profile}/></MemoryRouter>;

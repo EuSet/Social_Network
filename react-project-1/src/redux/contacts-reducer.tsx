@@ -24,6 +24,7 @@ export type ContactsActionType =
     | ReturnType<typeof setCurrentCount>
     | ReturnType<typeof setTotalCountContacts>
     | ReturnType<typeof setTogglePreloader>
+    | ReturnType<typeof unFollow>
 
 
 const initialState: ContactsPageType = {
@@ -35,6 +36,7 @@ const initialState: ContactsPageType = {
     togglePreloader: false
 }
 const FOLLOW = 'FOLLOW'
+const UN_FOLLOW = 'UN_FOLLOW'
 const SET_CONTACTS = 'SET_CONTACTS'
 const SET_CURRENT_COUNT = 'SET_CURRENT_COUNT'
 const SET_TOTAL_COUNT_CONTACTS = 'SET_TOTAL_COUNT_CONTACTS'
@@ -46,7 +48,17 @@ const contactsReducer = (state: ContactsPageType = initialState, action: Contact
                 ...state,
                 contactsData: state.contactsData.map(c => {
                     if (action.idUser === c.id) {
-                        return {...c, followed: !c.followed}
+                        return {...c, followed: true}
+                    }
+                    return c
+                })
+            }
+        case UN_FOLLOW:
+            return {
+                ...state,
+                contactsData: state.contactsData.map(c => {
+                    if (action.idUser === c.id) {
+                        return {...c, followed: false}
                     }
                     return c
                 })
@@ -65,6 +77,9 @@ const contactsReducer = (state: ContactsPageType = initialState, action: Contact
 }
 export const followNewContact = (id: number) => {
     return {type: FOLLOW, idUser: id} as const
+}
+export const unFollow = (id: number) => {
+    return {type: UN_FOLLOW, idUser: id} as const
 }
 export const setContacts = (contacts: ContactsDataType) => {
     return {type: SET_CONTACTS, contacts: contacts} as const

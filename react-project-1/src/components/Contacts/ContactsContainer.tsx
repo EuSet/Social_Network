@@ -5,7 +5,7 @@ import {
     setContacts,
     setCurrentCount,
     setTogglePreloader,
-    setTotalCountContacts
+    setTotalCountContacts, unFollow
 } from "../../redux/contacts-reducer";
 import {StateType} from "../../redux/redux-store";
 import axios from "axios";
@@ -30,7 +30,9 @@ class UsersClassContainer extends React.Component<any, any> {
     // }
     componentDidMount(): void {
         this.props.setTogglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        }).then(response => {
             this.props.setTogglePreloader(false)
             this.props.setContacts(response.data.items)
             this.props.setTotalCountContacts(response.data.totalCount)
@@ -40,7 +42,9 @@ class UsersClassContainer extends React.Component<any, any> {
     onPageChanged = (p: number) => {
         this.props.setCurrentCount(p)
         this.props.setTogglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        }).then(response => {
             this.props.setContacts(response.data.items)
             this.props.setTogglePreloader(false)
         })
@@ -53,6 +57,7 @@ class UsersClassContainer extends React.Component<any, any> {
             totalCount={this.props.totalCount}
             currentPage={this.props.currentPage}
             followNewContact={this.props.followNewContact}
+            unFollow={this.props.unFollow}
             onPageChanged={this.onPageChanged}
         />
     }
@@ -83,7 +88,8 @@ const ContactsContainer = connect(mapStateToProps, {
     setTotalCountContacts,
     setCurrentCount,
     setContacts,
-    followNewContact
+    followNewContact,
+    unFollow
 })(UsersClassContainer)
 
 export default ContactsContainer
