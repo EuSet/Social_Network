@@ -4,6 +4,7 @@ export type ContactsPageType = {
     totalCount: number
     currentPage: number
     togglePreloader: boolean
+    progressBtnDisabled: Array<number>
 }
 export type ContactsDataType = Array<ContactsDataFriendType>
 export type ContactsDataFriendType = {
@@ -25,6 +26,7 @@ export type ContactsActionType =
     | ReturnType<typeof setTotalCountContacts>
     | ReturnType<typeof setTogglePreloader>
     | ReturnType<typeof unFollow>
+    | ReturnType<typeof setToggleBtnDisabled>
 
 
 const initialState: ContactsPageType = {
@@ -33,7 +35,8 @@ const initialState: ContactsPageType = {
     pageSize: 10,
     totalCount: 0,
     currentPage: 1,
-    togglePreloader: false
+    togglePreloader: false,
+    progressBtnDisabled:[]
 }
 const FOLLOW = 'FOLLOW'
 const UN_FOLLOW = 'UN_FOLLOW'
@@ -41,6 +44,8 @@ const SET_CONTACTS = 'SET_CONTACTS'
 const SET_CURRENT_COUNT = 'SET_CURRENT_COUNT'
 const SET_TOTAL_COUNT_CONTACTS = 'SET_TOTAL_COUNT_CONTACTS'
 const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER'
+const TOGGLE_BTN_DISABLED = 'TOGGLE_BTN_DISABLED'
+
 const contactsReducer = (state: ContactsPageType = initialState, action: ContactsActionType) => {
     switch (action.type) {
         case FOLLOW:
@@ -71,6 +76,12 @@ const contactsReducer = (state: ContactsPageType = initialState, action: Contact
             return {...state, totalCount: action.totalCount}
         case TOGGLE_PRELOADER:
             return {...state, togglePreloader: action.toggle}
+        case "TOGGLE_BTN_DISABLED":
+            return {
+                ...state,
+                progressBtnDisabled:action.toggle ? [...state.progressBtnDisabled, action.id] :
+                    state.progressBtnDisabled.filter(id => id !== action.id)
+            }
         default:
             return state
     }
@@ -92,6 +103,9 @@ export const setTotalCountContacts = (totalCount: number) => {
 }
 export const setTogglePreloader = (toggle: boolean) => {
     return {type: TOGGLE_PRELOADER, toggle} as const
+}
+export const setToggleBtnDisabled = (toggle: boolean, id:number) => {
+    return {type: TOGGLE_BTN_DISABLED, toggle, id} as const
 }
 
 export default contactsReducer;

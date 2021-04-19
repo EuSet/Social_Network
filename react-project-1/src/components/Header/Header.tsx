@@ -4,7 +4,6 @@ import logo from './../../img/logo.png';
 import {NavLink} from "react-router-dom";
 
 const Header = (props:any) => {
-    debugger
     return  <div className={s.Header}>
         <img src={logo} alt={'#'} />
         <div className={s.logAuth}>

@@ -3,14 +3,15 @@ import {connect} from "react-redux";
 import {
     followNewContact,
     setContacts,
-    setCurrentCount,
+    setCurrentCount, setToggleBtnDisabled,
     setTogglePreloader,
-    setTotalCountContacts, unFollow
+    setTotalCountContacts,
+    unFollow
 } from "../../redux/contacts-reducer";
 import {StateType} from "../../redux/redux-store";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader";
+import {usersAPI} from "../../api/api";
 
 
 const mapStateToProps = (state: StateType) => {
@@ -19,7 +20,8 @@ const mapStateToProps = (state: StateType) => {
         pageSize: state.contactsPage.pageSize,
         totalCount: state.contactsPage.totalCount,
         currentPage: state.contactsPage.currentPage,
-        togglePreloader: state.contactsPage.togglePreloader
+        togglePreloader: state.contactsPage.togglePreloader,
+        progressBtnDisabled: state.contactsPage.progressBtnDisabled
     }
 }
 
@@ -30,22 +32,18 @@ class UsersClassContainer extends React.Component<any, any> {
     // }
     componentDidMount(): void {
         this.props.setTogglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        }).then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.setTogglePreloader(false)
-            this.props.setContacts(response.data.items)
-            this.props.setTotalCountContacts(response.data.totalCount)
+            this.props.setContacts(data.items)
+            this.props.setTotalCountContacts(data.totalCount)
         })
     }
 
     onPageChanged = (p: number) => {
         this.props.setCurrentCount(p)
         this.props.setTogglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        }).then(response => {
-            this.props.setContacts(response.data.items)
+        usersAPI.getUsers(p,this.props.pageSize).then(data => {
+            this.props.setContacts(data.items)
             this.props.setTogglePreloader(false)
         })
     }
@@ -59,6 +57,8 @@ class UsersClassContainer extends React.Component<any, any> {
             followNewContact={this.props.followNewContact}
             unFollow={this.props.unFollow}
             onPageChanged={this.onPageChanged}
+            setToggleBtnDisabled={this.props.setToggleBtnDisabled}
+            progressBtnDisabled={this.props.progressBtnDisabled}
         />
     }
 }
@@ -89,7 +89,8 @@ const ContactsContainer = connect(mapStateToProps, {
     setCurrentCount,
     setContacts,
     followNewContact,
-    unFollow
+    unFollow,
+    setToggleBtnDisabled
 })(UsersClassContainer)
 
 export default ContactsContainer
