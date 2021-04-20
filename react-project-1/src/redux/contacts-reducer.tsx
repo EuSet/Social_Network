@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 export type ContactsPageType = {
     contactsData: ContactsDataType
     pageSize: number
@@ -36,7 +38,7 @@ const initialState: ContactsPageType = {
     totalCount: 0,
     currentPage: 1,
     togglePreloader: false,
-    progressBtnDisabled:[]
+    progressBtnDisabled: []
 }
 const FOLLOW = 'FOLLOW'
 const UN_FOLLOW = 'UN_FOLLOW'
@@ -79,7 +81,7 @@ const contactsReducer = (state: ContactsPageType = initialState, action: Contact
         case "TOGGLE_BTN_DISABLED":
             return {
                 ...state,
-                progressBtnDisabled:action.toggle ? [...state.progressBtnDisabled, action.id] :
+                progressBtnDisabled: action.toggle ? [...state.progressBtnDisabled, action.id] :
                     state.progressBtnDisabled.filter(id => id !== action.id)
             }
         default:
@@ -104,8 +106,39 @@ export const setTotalCountContacts = (totalCount: number) => {
 export const setTogglePreloader = (toggle: boolean) => {
     return {type: TOGGLE_PRELOADER, toggle} as const
 }
-export const setToggleBtnDisabled = (toggle: boolean, id:number) => {
+export const setToggleBtnDisabled = (toggle: boolean, id: number) => {
     return {type: TOGGLE_BTN_DISABLED, toggle, id} as const
 }
-
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: (action: ContactsActionType) => void) => {
+        dispatch(setTogglePreloader(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setTogglePreloader(false))
+            dispatch(setContacts(data.items))
+            dispatch(setTotalCountContacts(data.totalCount))
+        })
+    }
+}
+export const unFollowUserThunk = (id: number) => {
+    return (dispatch: (action: ContactsActionType) => void) => {
+        dispatch(setToggleBtnDisabled(true, id))
+        usersAPI.unFollowUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollow(id))
+            }
+            dispatch(setToggleBtnDisabled(false, id))
+        })
+    }
+}
+export const followUserThunk = (id: number) => {
+    return (dispatch: (action: ContactsActionType) => void) => {
+        dispatch(setToggleBtnDisabled(true, id))
+        usersAPI.followUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followNewContact(id))
+            }
+            dispatch(setToggleBtnDisabled(false, id))
+        })
+    }
+}
 export default contactsReducer;

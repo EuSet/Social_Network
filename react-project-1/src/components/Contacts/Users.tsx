@@ -15,6 +15,8 @@ export type PropsType = {
     onPageChanged: (count: number) => void
     setToggleBtnDisabled: (toggle: boolean, id: number) => void
     progressBtnDisabled: Array<number>
+    unFollowUserThunk: (id:number) => void
+    followUserThunk: (id:number) => void
 }
 
 export const Users = (props: PropsType) => {
@@ -44,22 +46,24 @@ export const Users = (props: PropsType) => {
                 </NavLink>
                 <div>
                     {c.followed ? <button disabled={props.progressBtnDisabled.some(id => id === c.id)} onClick={() => {
-                            props.setToggleBtnDisabled(true, c.id)
-                            usersAPI.unFollowUser(c.id).then(data => {
-                                if (data.resultCode === 0) {
-                                    props.unFollow(c.id)
-                                }
-                                props.setToggleBtnDisabled(false, c.id)
-                            })
-                        }}>UnFollow</button> :
+                        props.unFollowUserThunk(c.id)
+                        // props.setToggleBtnDisabled(true, c.id)
+                            // usersAPI.unFollowUser(c.id).then(data => {
+                            //     if (data.resultCode === 0) {
+                            //         props.unFollow(c.id)
+                            //     }
+                            //     props.setToggleBtnDisabled(false, c.id)
+                            // })
+                        }}>unFollow</button> :
                         <button disabled={props.progressBtnDisabled.some(id => id === c.id)} onClick={() => {
-                            props.setToggleBtnDisabled(true, c.id)
-                            usersAPI.followUser(c.id).then(data => {
-                                if (data.resultCode === 0) {
-                                    props.followNewContact(c.id)
-                                }
-                                props.setToggleBtnDisabled(false, c.id)
-                            })
+                          props.followUserThunk(c.id)
+                            // props.setToggleBtnDisabled(true, c.id)
+                            // usersAPI.followUser(c.id).then(data => {
+                            //     if (data.resultCode === 0) {
+                            //         props.followNewContact(c.id)
+                            //     }
+                            //     props.setToggleBtnDisabled(false, c.id)
+                            // })
                         }}>Follow</button>}
                 </div>
             </div>

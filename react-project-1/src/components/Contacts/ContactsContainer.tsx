@@ -1,17 +1,18 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    followNewContact,
+    followNewContact, followUserThunk,
+    getUsers,
     setContacts,
-    setCurrentCount, setToggleBtnDisabled,
+    setCurrentCount,
+    setToggleBtnDisabled,
     setTogglePreloader,
     setTotalCountContacts,
-    unFollow
+    unFollow, unFollowUserThunk
 } from "../../redux/contacts-reducer";
 import {StateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader";
-import {usersAPI} from "../../api/api";
 
 
 const mapStateToProps = (state: StateType) => {
@@ -31,21 +32,23 @@ class UsersClassContainer extends React.Component<any, any> {
     //
     // }
     componentDidMount(): void {
-        this.props.setTogglePreloader(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setTogglePreloader(false)
-            this.props.setContacts(data.items)
-            this.props.setTotalCountContacts(data.totalCount)
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        // this.props.setTogglePreloader(true)
+        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        //     this.props.setTogglePreloader(false)
+        //     this.props.setContacts(data.items)
+        //     this.props.setTotalCountContacts(data.totalCount)
+        // })
     }
 
     onPageChanged = (p: number) => {
         this.props.setCurrentCount(p)
-        this.props.setTogglePreloader(true)
-        usersAPI.getUsers(p,this.props.pageSize).then(data => {
-            this.props.setContacts(data.items)
-            this.props.setTogglePreloader(false)
-        })
+        this.props.getUsers(p, this.props.pageSize)
+        // this.props.setTogglePreloader(true)
+        // usersAPI.getUsers(p,this.props.pageSize).then(data => {
+        //     this.props.setContacts(data.items)
+        //     this.props.setTogglePreloader(false)
+        // })
     }
 
     render(): React.ReactNode {
@@ -59,6 +62,8 @@ class UsersClassContainer extends React.Component<any, any> {
             onPageChanged={this.onPageChanged}
             setToggleBtnDisabled={this.props.setToggleBtnDisabled}
             progressBtnDisabled={this.props.progressBtnDisabled}
+            unFollowUserThunk={this.props.unFollowUserThunk}
+            followUserThunk={this.props.followUserThunk}
         />
     }
 }
@@ -90,7 +95,11 @@ const ContactsContainer = connect(mapStateToProps, {
     setContacts,
     followNewContact,
     unFollow,
-    setToggleBtnDisabled
+    setToggleBtnDisabled,
+    getUsers,
+    unFollowUserThunk,
+    followUserThunk
+
 })(UsersClassContainer)
 
 export default ContactsContainer
