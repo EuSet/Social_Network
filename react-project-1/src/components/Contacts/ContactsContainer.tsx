@@ -1,18 +1,21 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    followNewContact, followUserThunk,
+    followNewContact,
+    followUserThunk,
     getUsers,
     setContacts,
     setCurrentCount,
     setToggleBtnDisabled,
     setTogglePreloader,
     setTotalCountContacts,
-    unFollow, unFollowUserThunk
+    unFollow,
+    unFollowUserThunk
 } from "../../redux/contacts-reducer";
 import {StateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 const mapStateToProps = (state: StateType) => {
@@ -87,7 +90,7 @@ class UsersClassContainer extends React.Component<any, any> {
 //         }
 //     }
 // }
-
+const authRedirectComponent = withAuthRedirect(UsersClassContainer)
 const ContactsContainer = connect(mapStateToProps, {
     setTogglePreloader,
     setTotalCountContacts,
@@ -100,6 +103,6 @@ const ContactsContainer = connect(mapStateToProps, {
     unFollowUserThunk,
     followUserThunk
 
-})(UsersClassContainer)
+})(authRedirectComponent)
 
 export default ContactsContainer

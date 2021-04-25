@@ -5,13 +5,16 @@ import contactsReducer, {ContactsPageType} from "./contacts-reducer";
 import authReducer, {AuthType} from "./Auth-reducer";
 import thunkMiddleware from "redux-thunk";
 
-export type StateType = {
+export type StateType =
+{
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
     contactsPage:ContactsPageType
     authData: AuthType
 }
+    // ReturnType<ReducersType>
 
+// type ReducersType = typeof reducers
 let reducers = combineReducers(
     {
         profilePage: profileReducer,
