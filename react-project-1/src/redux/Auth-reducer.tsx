@@ -1,3 +1,5 @@
+import {authAPI, usersAPI} from "../api/api";
+
 export type AuthType = {
     id:number | null
     email:string | null
@@ -28,5 +30,13 @@ const authReducer = (state: AuthType = initialState, action: ActionType) => {
 export const setAuthData = (data: AuthType) => {
     return {type: SET_AUTH_DATA, data} as const
 }
-
+export const authMe = () => {
+    return (dispatch:(action:ActionType) => void) => {
+        authAPI.authInSocNetwork().then(response => {
+            if(response.data.resultCode === 0){
+                dispatch(setAuthData(response.data.data))
+            }
+        })
+    }
+}
 export default authReducer;

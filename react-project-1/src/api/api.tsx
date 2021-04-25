@@ -18,4 +18,13 @@ export const usersAPI = {
     followUser(id:number) {
         return instance.post(`follow/${id}`,{}).then(response => response.data)
     },
+    getUserProfile(userId:number) {
+        return instance.get('profile/' + userId)
+    }
+}
+
+export const authAPI = {
+    authInSocNetwork() {
+        return  instance.get(`auth/me`)
+    },
 }

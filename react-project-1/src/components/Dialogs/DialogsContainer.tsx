@@ -6,7 +6,8 @@ import {StateType} from "../../redux/redux-store";
 
 const mapStateToProps = (state: StateType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.authData.isAuth
     }
 }
 // const mapDispatchToProps = (dispatch: (action:DialogsActionType) => void) => {

@@ -10,6 +10,7 @@ import React from "react";
 import ContactsContainer from "./components/Contacts/ContactsContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/feed' render={() => <Feed/>}/>
                     <Route path='/contacts' render={() => <ContactsContainer/>}/>
+                    <Route path='/login' render={() => <Login/>}/>
                 </div>
             </div>
             <Footer/>

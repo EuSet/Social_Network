@@ -3,7 +3,6 @@ import s from "./Contacts.module.css";
 import {ContactsDataFriendType, ContactsDataType} from "../../redux/contacts-reducer";
 import {NavLink} from "react-router-dom";
 import ContactsAvatar from "../../img/icons8-профиль-кошки-96.png";
-import {usersAPI} from "../../api/api";
 
 export type PropsType = {
     contactsData: ContactsDataType

@@ -1,4 +1,5 @@
 import {ContactsDataFriendType} from "./contacts-reducer";
+import {usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     postsData: PostDataType
@@ -73,6 +74,13 @@ export const onPostChangeCreateAction = (createNewPost: string) => {
 }
 export const setProfile = (profile: ContactsDataFriendType) => {
     return {type: SET_PROFILE, profile} as const
+}
+export const getProfile = (userId: number) => {
+    return (dispatch: (action: ProfileActionType) => void) => {
+        usersAPI.getUserProfile(userId).then(response => {
+                dispatch(setProfile(response.data))
+            })
+    }
 }
 export default profileReducer;
 
