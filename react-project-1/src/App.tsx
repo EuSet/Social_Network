@@ -8,9 +8,9 @@ import Feed from "./components/Feed/Feed";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import React from "react";
 import ContactsContainer from "./components/Contacts/ContactsContainer";
-import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 function App() {
     return (

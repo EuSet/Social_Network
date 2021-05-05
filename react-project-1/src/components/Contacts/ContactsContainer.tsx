@@ -16,6 +16,7 @@ import {StateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import { compose } from 'redux';
 
 
 const mapStateToProps = (state: StateType) => {
@@ -30,10 +31,6 @@ const mapStateToProps = (state: StateType) => {
 }
 
 class UsersClassContainer extends React.Component<any, any> {
-    // constructor(props: any) {
-    //     super(props);
-    //
-    // }
     componentDidMount(): void {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
         // this.props.setTogglePreloader(true)
@@ -90,19 +87,37 @@ class UsersClassContainer extends React.Component<any, any> {
 //         }
 //     }
 // }
-const authRedirectComponent = withAuthRedirect(UsersClassContainer)
-const ContactsContainer = connect(mapStateToProps, {
-    setTogglePreloader,
-    setTotalCountContacts,
-    setCurrentCount,
-    setContacts,
-    followNewContact,
-    unFollow,
-    setToggleBtnDisabled,
-    getUsers,
-    unFollowUserThunk,
-    followUserThunk
+// const authRedirectComponent = withAuthRedirect(UsersClassContainer)
+// const ContactsContainer = connect(mapStateToProps, {
+//     setTogglePreloader,
+//     setTotalCountContacts,
+//     setCurrentCount,
+//     setContacts,
+//     followNewContact,
+//     unFollow,
+//     setToggleBtnDisabled,
+//     getUsers,
+//     unFollowUserThunk,
+//     followUserThunk
+//
+// })(authRedirectComponent)
 
-})(authRedirectComponent)
 
-export default ContactsContainer
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        setTogglePreloader,
+        setTotalCountContacts,
+        setCurrentCount,
+        setContacts,
+        followNewContact,
+        unFollow,
+        setToggleBtnDisabled,
+        getUsers,
+        unFollowUserThunk,
+        followUserThunk
+
+    }),
+    withAuthRedirect
+)(UsersClassContainer)
+
+
