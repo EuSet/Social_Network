@@ -1,10 +1,10 @@
-import {ContactsDataFriendType} from "./contacts-reducer";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     postsData: PostDataType
     newPostText: NewPostTextType
     profile: profileType | null
+    status:string
 }
 export type profileType = {
     aboutMe: string
@@ -19,32 +19,37 @@ export type PostDataType = Array<MessagePostType>
 type MessagePostType = {
     message: string
     quantityOfLikes: number
+    id:number
 }
 type NewPostTextType = string
 export type ProfileActionType = ReturnType<typeof addPostCreateActions>
     | ReturnType<typeof onPostChangeCreateAction>
     | ReturnType<typeof setProfile>
+    | ReturnType<typeof setProfileStatus>
 
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'
 const SET_PROFILE = 'SET_PROFILE'
+const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
 
 const inintialState = {
     postsData: [
-        {message: 'Hi, how are you', quantityOfLikes: 10},
-        {message: 'It\'s my first post', quantityOfLikes: 17},
+        {message: 'Hi, how are you', quantityOfLikes: 10, id:1},
+        {message: 'It\'s my first post', quantityOfLikes: 17, id: 2},
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status:''
 }
 
-const profileReducer = (state: ProfilePageType = inintialState, action: ProfileActionType) => {
+const profileReducer = (state: ProfilePageType = inintialState, action: ProfileActionType):ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             let newPost = {
                 message: state.newPostText,
-                quantityOfLikes: 0
+                quantityOfLikes: 0,
+                id:3
             }
             return {
                 ...state,
@@ -61,6 +66,11 @@ const profileReducer = (state: ProfilePageType = inintialState, action: ProfileA
                 ...state,
                 profile: action.profile
             }
+        case "SET_PROFILE_STATUS":
+            return {
+                ...state,
+                status:action.status
+            }
         default:
             return state
     }
@@ -72,9 +82,13 @@ export const addPostCreateActions = () => {
 export const onPostChangeCreateAction = (createNewPost: string) => {
     return {type: UPDATE_NEW_POST_CHANGE, newText: createNewPost} as const
 }
-export const setProfile = (profile: ContactsDataFriendType) => {
+export const setProfile = (profile: profileType) => {
     return {type: SET_PROFILE, profile} as const
 }
+export const setProfileStatus = (status:string) => {
+    return {type: SET_PROFILE_STATUS, status} as const
+}
+
 export const getProfile = (userId: number) => {
     return (dispatch: (action: ProfileActionType) => void) => {
         usersAPI.getUserProfile(userId).then(response => {
@@ -82,5 +96,22 @@ export const getProfile = (userId: number) => {
             })
     }
 }
+export const getProfileStatus = (userId: number) => {
+    return (dispatch: (action: ProfileActionType) => void) => {
+        profileAPI.getProfileStatus(userId).then(response => {
+            dispatch(setProfileStatus(response.data))
+        })
+    }
+}
+export const updateProfileStatus = (status:string) => {
+    return (dispatch: (action: ProfileActionType) => void) => {
+        profileAPI.updateProfileStatus(status).then(response => {
+            if(response.data.resultCode === 0){
+                dispatch(setProfileStatus(status))
+            }
+        })
+    }
+}
+
 export default profileReducer;
 

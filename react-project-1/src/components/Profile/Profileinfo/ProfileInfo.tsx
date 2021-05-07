@@ -2,9 +2,12 @@ import s from './ProfileInfo.module.css';
 import profileCover from './../../../img/profile-cover.jpg'
 import {profileType} from "../../../redux/profile-reducer";
 import {ProfileStatus} from "./ProfileStatus";
+import React from "react";
 
 export type PropsType = {
     profile:profileType | null
+    status:string
+    updateProfileStatus:(status:string) => void
 }
 const ProfileInfo = (props:PropsType) => {
      return  <div>
@@ -14,7 +17,7 @@ const ProfileInfo = (props:PropsType) => {
          <div>
              {props.profile?.fullName}
          </div>
-         <ProfileStatus/>
+         <ProfileStatus status={props.status} updateProfileStatus={props.updateProfileStatus}/>
         <div className={s.ava}>
             <img src={props.profile?.photos.large} alt={'#'}/>
         </div>

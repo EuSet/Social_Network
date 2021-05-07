@@ -1,4 +1,5 @@
 import axios from "axios";
+import {FormDataType} from "../components/Login/Login";
 
 const instance = axios.create({
     withCredentials: true,
@@ -23,8 +24,26 @@ export const usersAPI = {
     }
 }
 
+export const profileAPI = {
+    getProfileStatus(userId:number) {
+        return instance.get('/profile/status/' + userId)
+    },
+    updateProfileStatus(status:string) {
+        return instance.put('/profile/status',{
+            status:status
+        })
+    }
+}
+
 export const authAPI = {
     authInSocNetwork() {
         return  instance.get(`auth/me`)
     },
+    signInSocialNetwork(data:FormDataType) {
+        return instance.post('/auth/login', {
+            email:data.login,
+            password:data.password,
+            rememberMe:data.rememberMe
+        })
+    }
 }

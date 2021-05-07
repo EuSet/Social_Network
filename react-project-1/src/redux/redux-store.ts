@@ -1,27 +1,23 @@
-import {combineReducers,createStore, applyMiddleware} from "redux"
-import profileReducer, {ProfilePageType} from "./profile-reducer";
-import dialogsReducer, {DialogsPageType} from "./dialogs-reducer";
-import contactsReducer, {ContactsPageType} from "./contacts-reducer";
-import authReducer, {AuthType} from "./Auth-reducer";
+import {applyMiddleware, combineReducers, createStore} from "redux"
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import contactsReducer from "./contacts-reducer";
+import authReducer from "./Auth-reducer";
 import thunkMiddleware from "redux-thunk";
+import {reducer as formReducer} from 'redux-form'
 
-export type StateType =
-{
-    dialogsPage: DialogsPageType
-    profilePage: ProfilePageType
-    contactsPage:ContactsPageType
-    authData: AuthType
-}
-    // ReturnType<ReducersType>
 
-// type ReducersType = typeof reducers
+export type StateType = ReturnType<typeof reducers>
 let reducers = combineReducers(
     {
-        profilePage: profileReducer,
         dialogsPage: dialogsReducer,
         contactsPage: contactsReducer,
-        authData: authReducer
+        profilePage: profileReducer,
+        authData: authReducer,
+        form: formReducer
     }
 )
 export let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+// @ts-ignore
+window.store = store
 

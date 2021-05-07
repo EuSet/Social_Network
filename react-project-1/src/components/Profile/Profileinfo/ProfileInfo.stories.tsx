@@ -8,4 +8,8 @@ export default {
     component: ProfileInfo,
 }
 
-export const Template = (props:PropsType) => <MemoryRouter><ProfileInfo profile={props.profile}/></MemoryRouter>;
+export const Template = (props:PropsType) => <MemoryRouter>
+    <ProfileInfo profile={props.profile}
+                 status={props.status}
+                 updateProfileStatus={props.updateProfileStatus}
+    /></MemoryRouter>;

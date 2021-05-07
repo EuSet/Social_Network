@@ -10,6 +10,8 @@ export default {
     component: Profile,
 }
 
-export const Template = (props:PropsType) => <Provider store={store}><MemoryRouter><Profile profile={props.profile}/></MemoryRouter></Provider>;
+export const Template = (props:PropsType) => <Provider store={store}><MemoryRouter>
+    <Profile profile={props.profile} status={props.status}
+             updateProfileStatus={props.updateProfileStatus}/></MemoryRouter></Provider>;
 
 

@@ -1,4 +1,5 @@
-import {authAPI, usersAPI} from "../api/api";
+import {authAPI} from "../api/api";
+import {FormDataType} from "../components/Login/Login";
 
 export type AuthType = {
     id:number | null
@@ -7,7 +8,8 @@ export type AuthType = {
     isAuth:boolean
 }
 const SET_AUTH_DATA = 'SET_AUTH_DATA'
-export type ActionType = ReturnType<typeof setAuthData>
+const SIGN_IN = 'SIGN_IN'
+export type ActionType = ReturnType<typeof setAuthData> | ReturnType<typeof signInSocNetwork>
 const initialState: AuthType = {
     id: null,
     login:null,
@@ -15,7 +17,7 @@ const initialState: AuthType = {
     isAuth:false
 }
 
-const authReducer = (state: AuthType = initialState, action: ActionType) => {
+const authReducer = (state: AuthType = initialState, action: ActionType): AuthType => {
     switch (action.type) {
         case SET_AUTH_DATA:
             return {
@@ -23,6 +25,11 @@ const authReducer = (state: AuthType = initialState, action: ActionType) => {
                 ...action.data,
                 isAuth:true,
              }
+        case "SIGN_IN":
+            return {
+                ...state,
+                ...action.data
+            }
         default:
             return state
     }
@@ -30,11 +37,23 @@ const authReducer = (state: AuthType = initialState, action: ActionType) => {
 export const setAuthData = (data: AuthType) => {
     return {type: SET_AUTH_DATA, data} as const
 }
+export const signInSocNetwork = (data: AuthType) => {
+    return {type:SIGN_IN, data} as const
+}
 export const authMe = () => {
     return (dispatch:(action:ActionType) => void) => {
         authAPI.authInSocNetwork().then(response => {
             if(response.data.resultCode === 0){
                 dispatch(setAuthData(response.data.data))
+            }
+        })
+    }
+}
+export const signIn = (data:FormDataType) => {
+    return (dispatch:(action:ActionType) => void) => {
+        authAPI.signInSocialNetwork(data).then(response => {
+            if(response.data.resultCode === 0){
+                dispatch(signInSocNetwork(response.data))
             }
         })
     }
