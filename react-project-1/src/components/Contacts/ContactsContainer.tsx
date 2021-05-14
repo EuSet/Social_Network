@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
+    ContactsDataType,
     followNewContact,
     followUserThunk,
     getUsers,
@@ -18,7 +19,22 @@ import {Preloader} from "../Common/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import { compose } from 'redux';
 
-
+type PropsType = {
+    followNewContact: (id: number) => void
+    unFollow: (id: number) => void
+    onPageChanged: (count: number) => void
+    setToggleBtnDisabled: (toggle: boolean, id: number) => void
+    progressBtnDisabled: Array<number>
+    unFollowUserThunk: (id:number) => void
+    followUserThunk: (id:number) => void
+    getUsers:(currentPage: number, pageSize: number) => void
+    setCurrentCount:(p:number) => void
+    togglePreloader:boolean
+    contactsData: ContactsDataType
+    pageSize: number
+    totalCount: number
+    currentPage: number
+}
 const mapStateToProps = (state: StateType) => {
     return {
         contactsData: state.contactsPage.contactsData,
@@ -30,7 +46,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-class UsersClassContainer extends React.Component<any, any> {
+class UsersClassContainer extends React.Component<PropsType, StateType> {
     componentDidMount(): void {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
         // this.props.setTogglePreloader(true)
@@ -115,7 +131,6 @@ export default compose<React.ComponentType>(
         getUsers,
         unFollowUserThunk,
         followUserThunk
-
     }),
     withAuthRedirect
 )(UsersClassContainer)

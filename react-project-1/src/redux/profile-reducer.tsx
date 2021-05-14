@@ -1,8 +1,8 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {FormAction, reset} from "redux-form";
 
 export type ProfilePageType = {
     postsData: PostDataType
-    newPostText: NewPostTextType
     profile: profileType | null
     status:string
 }
@@ -21,15 +21,12 @@ type MessagePostType = {
     quantityOfLikes: number
     id:number
 }
-type NewPostTextType = string
-export type ProfileActionType = ReturnType<typeof addPostCreateActions>
-    | ReturnType<typeof onPostChangeCreateAction>
+export type ProfileActionType = ReturnType <typeof addPost>
     | ReturnType<typeof setProfile>
     | ReturnType<typeof setProfileStatus>
 
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'
 const SET_PROFILE = 'SET_PROFILE'
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
 
@@ -38,7 +35,6 @@ const inintialState = {
         {message: 'Hi, how are you', quantityOfLikes: 10, id:1},
         {message: 'It\'s my first post', quantityOfLikes: 17, id: 2},
     ],
-    newPostText: '',
     profile: null,
     status:''
 }
@@ -47,19 +43,13 @@ const profileReducer = (state: ProfilePageType = inintialState, action: ProfileA
     switch (action.type) {
         case 'ADD-POST':
             let newPost = {
-                message: state.newPostText,
+                message: action.newPost,
                 quantityOfLikes: 0,
                 id:3
             }
             return {
                 ...state,
-                postsData: [...state.postsData, newPost],
-                newPostText: state.newPostText = ''
-            }
-        case 'UPDATE-NEW-POST-CHANGE':
-            return {
-                ...state,
-                newPostText: action.newText
+                postsData: [newPost,...state.postsData],
             }
         case SET_PROFILE:
             return {
@@ -76,11 +66,8 @@ const profileReducer = (state: ProfilePageType = inintialState, action: ProfileA
     }
 }
 
-export const addPostCreateActions = () => {
-    return {type: ADD_POST} as const
-}
-export const onPostChangeCreateAction = (createNewPost: string) => {
-    return {type: UPDATE_NEW_POST_CHANGE, newText: createNewPost} as const
+export const addPost = (newPost:string) => {
+    return {type: ADD_POST, newPost} as const
 }
 export const setProfile = (profile: profileType) => {
     return {type: SET_PROFILE, profile} as const
@@ -110,6 +97,12 @@ export const updateProfileStatus = (status:string) => {
                 dispatch(setProfileStatus(status))
             }
         })
+    }
+}
+export const addNewPostThunk = (newPost:string) => {
+    return (dispatch: (action:ProfileActionType | FormAction) => void) => {
+        dispatch(addPost(newPost))
+        dispatch(reset('post'))
     }
 }
 

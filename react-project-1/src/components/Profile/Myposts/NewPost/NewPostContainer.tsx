@@ -1,27 +1,25 @@
-import React from 'react';
-import {
-    addPostCreateActions,
-    onPostChangeCreateAction, ProfileActionType,
-} from "../../../../redux/profile-reducer";
+import {addNewPostThunk, addPost,} from "../../../../redux/profile-reducer";
 import NewPost from "./NewPost";
 import {connect} from "react-redux";
 import {StateType} from "../../../../redux/redux-store";
 
 const mapStateToProps = (state:StateType) => {
     return {
-        newPostText: state.profilePage.newPostText
     }
 }
-const mapDispatchToProps = (dispatch:(action:ProfileActionType) => void) => {
-    return {
-        addPost: () => {
-            dispatch(addPostCreateActions())
-        },
-        onPostChange: (createNewPost:string) => {
-            dispatch(onPostChangeCreateAction(createNewPost))
-        }
-    }
-}
+// const mapDispatchToProps = (dispatch:(action:ProfileActionType | FormAction) => void) => {
+//     return {
+//         addPost: (newPost:string) => {
+//             dispatch(addPost(newPost))
+//         },
+//         onPostChange: (createNewPost:string) => {
+//             dispatch(onPostChange(createNewPost))
+//         },
+//         addNewPost: (newPost:string) => {
+//             dispatch(addNewPostThunk(newPost))
+//         }
+//     }
+// }
 
-const NewPostContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost)
+const NewPostContainer = connect(mapStateToProps, {addPost, addNewPostThunk})(NewPost)
 export default NewPostContainer;

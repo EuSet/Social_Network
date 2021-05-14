@@ -2,10 +2,18 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
-import {getProfile, getProfileStatus, updateProfileStatus} from "../../redux/profile-reducer";
+import {getProfile, getProfileStatus, profileType, updateProfileStatus} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 
+type PropsType = {
+    match:{params:{userId:number}}
+    getProfile:(userId:number) => void
+    getProfileStatus: (userId:number) => void
+    updateProfileStatus:(status:string) => void
+    profile: profileType
+    status:string
+}
 
 const mapStateToProps = (state:StateType) => {
     return{
@@ -13,7 +21,7 @@ const mapStateToProps = (state:StateType) => {
         status: state.profilePage.status
     }
 }
-class ProfileClassContainer extends React.Component<any, any> {
+class ProfileClassContainer extends React.Component<PropsType, StateType> {
     componentDidMount(): void {
         let userId = this.props.match.params.userId
         if(!userId) userId = 16444
@@ -29,7 +37,8 @@ class ProfileClassContainer extends React.Component<any, any> {
     render() {
         // if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return <Profile {...this.props} profile={this.props.profile}
-                        status={this.props.status} updateProfileStatus={this.props.updateProfileStatus} />
+                        status={this.props.status}
+                        updateProfileStatus={this.props.updateProfileStatus}/>
     }
 }
 // const authRedirectComponent = withAuthRedirect(ProfileClassContainer)

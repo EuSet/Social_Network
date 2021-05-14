@@ -28,7 +28,7 @@ const authReducer = (state: AuthType = initialState, action: ActionType): AuthTy
         case "SIGN_IN":
             return {
                 ...state,
-                ...action.data
+                id:action.data
             }
         default:
             return state
@@ -37,7 +37,7 @@ const authReducer = (state: AuthType = initialState, action: ActionType): AuthTy
 export const setAuthData = (data: AuthType) => {
     return {type: SET_AUTH_DATA, data} as const
 }
-export const signInSocNetwork = (data: AuthType) => {
+export const signInSocNetwork = (data: number) => {
     return {type:SIGN_IN, data} as const
 }
 export const authMe = () => {
@@ -53,7 +53,7 @@ export const signIn = (data:FormDataType) => {
     return (dispatch:(action:ActionType) => void) => {
         authAPI.signInSocialNetwork(data).then(response => {
             if(response.data.resultCode === 0){
-                dispatch(signInSocNetwork(response.data))
+                dispatch(signInSocNetwork(response.data.userId))
             }
         })
     }

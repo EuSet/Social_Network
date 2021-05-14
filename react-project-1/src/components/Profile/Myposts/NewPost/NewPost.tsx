@@ -1,27 +1,20 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './NewPost.module.css';
+import {NewPostFormDataType, NewPostReduxForm} from "./NewPostForm";
 
 export type PropsType = {
-    newPostText:string
-    addPost:() => void
-    onPostChange:(addNewPost:string) => void
+    addNewPostThunk:(newPost:string) => void
 }
 
 
 const NewPost = (props:PropsType) => {
 
-    let addPost = () => {
-        props.addPost()
+    let addPost = (formData:NewPostFormDataType) => {
+        props.addNewPostThunk(formData.post)
     }
-    let createNewPost = props.newPostText
-    let onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        createNewPost = e.currentTarget.value
-        props.onPostChange(createNewPost)
 
-    }
     return <div className={s.newPost}>
-        <textarea onChange={onPostChange} value={createNewPost}/>
-        <button onClick={addPost}>add post</button>
+        <NewPostReduxForm onSubmit={addPost}/>
     </div>
 
 }

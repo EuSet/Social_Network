@@ -1,7 +1,7 @@
-import React, {ChangeEvent, useState} from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import React from 'react';
+import {Story} from '@storybook/react/types-6-0';
 import Dialogs from "./Dialogs";
-import {PropsType} from "../Dialogs/Dialogs";
+import {PropsType} from "./Dialogs";
 import {MemoryRouter} from 'react-router-dom';
 import {action} from "@storybook/addon-actions";
 
@@ -15,7 +15,6 @@ const Template: Story<PropsType> = (args) => <MemoryRouter><Dialogs {...args}/><
 
 export const DialogsStory = Template.bind({})
 const callback = action('click on button')
-const callback0 = action('change input value')
 DialogsStory.args = {
     dialogsPage: {
         dialogsData: [
@@ -29,8 +28,6 @@ DialogsStory.args = {
             {message: 'How are you', id: 1},
             {message: 'im here', id: 2}
         ],
-        messageText: ''
     },
-    addNewMessage: callback,
-    onNewMessageChange: callback0
+    addMessage: callback,
 };
