@@ -1,8 +1,16 @@
 import React from 'react'
 import Header from "./Header";
-import {authMe} from "../../redux/Auth-reducer";
+import {authMe, signOut} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
+
+
+type PropsType = {
+    authMe:() => void
+    signOut:() => void
+    isAuth:boolean
+    login:string | null
+}
 
 const mapStateToProps = (state: StateType) => {
     return {
@@ -11,22 +19,19 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export class HeaderClassContainer extends React.Component<any, any> {
+export class HeaderClassContainer extends React.Component<PropsType> {
     componentDidMount(): void {
         this.props.authMe()
-        // authAPI.authInSocNetwork().then(response => {
-        //     if(response.data.resultCode === 0){
-        //         this.props.setAuthData(response.data.data)
-        //     }
-        // })
     }
-    render(): React.ReactNode {
+
+    render() {
         return <Header
             isAuth={this.props.isAuth}
             login={this.props.login}
-            {...this.props}
+            signOut={this.props.signOut}
+
         />
     }
 }
 
-export const HeaderContainer = connect(mapStateToProps,{authMe})(HeaderClassContainer)
+export const HeaderContainer = connect(mapStateToProps,{authMe, signOut})(HeaderClassContainer)

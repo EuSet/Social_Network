@@ -17,8 +17,8 @@ const Dialogs = (props: PropsType) => {
         props.addMessage(formData.message)
     }
 
-    let dialogsElements = props.dialogsPage.dialogsData.map(d => <Dialogitems name={d.name} id={d.id}/>);
-    let messagesElements = props.dialogsPage.messagesData.map(m => <Message id={m.id} message={m.message}/>);
+    let dialogsElements = props.dialogsPage.dialogsData.map(d => <Dialogitems key={d.id} name={d.name} id={d.id}/>);
+    let messagesElements = props.dialogsPage.messagesData.map(m => <Message key={m.id} id={m.id} message={m.message}/>);
 
     // if(!props.isAuth) return <Redirect to={'/login'}/>
     return <div className={s.Dialogs}>

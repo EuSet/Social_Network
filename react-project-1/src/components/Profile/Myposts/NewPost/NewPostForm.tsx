@@ -1,5 +1,6 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {required} from "../../../Common/Validate";
 
 export type NewPostFormDataType = {
     post:string
@@ -8,7 +9,7 @@ export type NewPostFormDataType = {
 export const NewPostForm: React.FC<InjectedFormProps<NewPostFormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field component={'textarea'} name={'post'} placeholder={'post'}/>
+            <Field validate={[required]} component={'textarea'} name={'post'} placeholder={'post'}/>
         </div>
         <div>
             <button>send</button>

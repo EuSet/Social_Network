@@ -9,4 +9,4 @@ export default {
     component: Header,
 }
 
-export const Template = () => <MemoryRouter><Header isAuth={true}login={null}/></MemoryRouter>;
+export const Template = () => <MemoryRouter><Header signOut={() => {} } isAuth={true}login={null}/></MemoryRouter>;

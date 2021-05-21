@@ -1,5 +1,6 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {required} from "../Common/Validate";
 
 export type DialogsFormDataType = {
     message:string
@@ -8,7 +9,7 @@ export type DialogsFormDataType = {
 export const DialogsForm: React.FC<InjectedFormProps<DialogsFormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field component={'textarea'} name={'message'} placeholder={'message'}/>
+            <Field validate={[required]} component={'textarea'} name={'message'} placeholder={'message'}/>
         </div>
         <div>
             <button>send</button>
