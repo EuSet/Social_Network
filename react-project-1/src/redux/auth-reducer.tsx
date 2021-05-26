@@ -12,7 +12,7 @@ export type AuthType = {
 }
 const SET_AUTH_DATA = 'SET_AUTH_DATA'
 const SIGN_IN = 'SIGN_IN'
-export type ActionType = ReturnType<typeof setAuthData> | ReturnType<typeof signInSocNetwork>
+export type AuthActionType = ReturnType<typeof setAuthData> | ReturnType<typeof signInSocNetwork>
 export const initialState: AuthType = {
     id: null,
     login:null,
@@ -20,7 +20,7 @@ export const initialState: AuthType = {
     isAuth:false
 }
 
-export const authReducer = (state: AuthType = initialState, action: ActionType): AuthType => {
+export const authReducer = (state: AuthType = initialState, action: AuthActionType): AuthType => {
     switch (action.type) {
         case SET_AUTH_DATA:
             return {
@@ -46,11 +46,10 @@ export const setAuthData = (email:string | null, id:number | null, login:string 
 export const signInSocNetwork = (data: number | null) => {
     return {type:SIGN_IN, data} as const
 }
-export const authMe = () => {
-    return (dispatch:(action:ActionType) => void) => {
-        authAPI.authInSocNetwork().then(response => {
+export const authMe = () => (dispatch:(action:AuthActionType) => void) => {
+      return authAPI.authInSocNetwork()
+           .then(response => {
             if(response.data.resultCode === 0){
-
                 dispatch(setAuthData(
                     response.data.data.email,
                     response.data.data.id,
@@ -59,9 +58,9 @@ export const authMe = () => {
             }
         })
     }
-}
+
 export const signIn = (data:FormDataType) => {
-    return (dispatch: ThunkDispatch<StateType, unknown, ActionType | FormAction>) => {
+    return (dispatch: ThunkDispatch<StateType, unknown, AuthActionType | FormAction>) => {
         authAPI.signInSocialNetwork(data).then(response => {
             if(response.data.resultCode === 0){
                 dispatch(signInSocNetwork(response.data.data.userId))
@@ -74,7 +73,7 @@ export const signIn = (data:FormDataType) => {
     }
 }
 export const signOut = () => {
-    return (dispatch:(action:ActionType) => void) => {
+    return (dispatch:(action:AuthActionType) => void) => {
         authAPI.signOut().then(response => {
             if(response.data.resultCode === 0){
                 dispatch(setAuthData(null, null, null, false))

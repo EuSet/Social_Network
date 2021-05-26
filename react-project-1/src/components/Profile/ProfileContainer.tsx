@@ -14,6 +14,7 @@ type PropsType = {
     profile: profileType
     status:string
     authorizedId:number
+    history:any
 }
 
 const mapStateToProps = (state:StateType) => {
@@ -27,6 +28,7 @@ class ProfileClassContainer extends React.Component<PropsType, StateType> {
     componentDidMount(): void {
         let userId = this.props.match.params.userId
         if(!userId) userId = this.props.authorizedId
+        if(!userId) this.props.history.push('login')
         this.props.getProfile(userId)
         this.props.getProfileStatus(userId)
 

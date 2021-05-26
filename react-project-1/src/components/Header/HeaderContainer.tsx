@@ -1,12 +1,11 @@
 import React from 'react'
 import Header from "./Header";
-import {authMe, signOut} from "../../redux/auth-reducer";
+import {signOut} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 
 
 type PropsType = {
-    authMe:() => void
     signOut:() => void
     isAuth:boolean
     login:string | null
@@ -20,9 +19,9 @@ const mapStateToProps = (state: StateType) => {
 }
 
 export class HeaderClassContainer extends React.Component<PropsType> {
-    componentDidMount(): void {
-        this.props.authMe()
-    }
+    // componentDidMount(): void {
+    //     this.props.authMe()
+    // }
 
     render() {
         return <Header
@@ -34,4 +33,4 @@ export class HeaderClassContainer extends React.Component<PropsType> {
     }
 }
 
-export const HeaderContainer = connect(mapStateToProps,{authMe, signOut})(HeaderClassContainer)
+export const HeaderContainer = connect(mapStateToProps,{signOut})(HeaderClassContainer)

@@ -16,8 +16,7 @@ import {
 import {StateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import { compose } from 'redux';
+import {compose} from 'redux';
 
 type PropsType = {
     followNewContact: (id: number) => void
@@ -132,7 +131,7 @@ export default compose<React.ComponentType>(
         unFollowUserThunk,
         followUserThunk
     }),
-    withAuthRedirect
+    // withAuthRedirect
 )(UsersClassContainer)
 
 

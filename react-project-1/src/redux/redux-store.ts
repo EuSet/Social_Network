@@ -5,6 +5,7 @@ import contactsReducer from "./contacts-reducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
+import {appReducer} from "./app-reducer";
 
 
 export type StateType = ReturnType<typeof reducers>
@@ -14,7 +15,8 @@ let reducers = combineReducers(
         contactsPage: contactsReducer,
         profilePage: profileReducer,
         authData: authReducer,
-        form: formReducer
+        form: formReducer,
+        app: appReducer
     }
 )
 export let store = createStore(reducers, applyMiddleware(thunkMiddleware));
