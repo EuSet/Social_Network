@@ -12,7 +12,10 @@ export type PropsType = {
 
 const Profile = (props:PropsType) => {
     return <div className={s.Profile}>
-       <ProfileInfo profile={props.profile} status={props.status} updateProfileStatus={props.updateProfileStatus}/>
+       <ProfileInfo profile={props.profile}
+                    status={props.status}
+                    updateProfileStatus={props.updateProfileStatus}
+       />
         <MyPostsContainer />
     </div>
 }

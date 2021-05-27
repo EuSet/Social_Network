@@ -17,6 +17,14 @@ import {StateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader";
 import {compose} from 'redux';
+import {
+    getContactsData,
+    getCurrentPage,
+    getPageSize,
+    getProgressBtnDisabled,
+    getTogglePreloader,
+    getTotalCount
+} from "../../redux/selectors/contacts-selector";
 
 type PropsType = {
     followNewContact: (id: number) => void
@@ -36,12 +44,12 @@ type PropsType = {
 }
 const mapStateToProps = (state: StateType) => {
     return {
-        contactsData: state.contactsPage.contactsData,
-        pageSize: state.contactsPage.pageSize,
-        totalCount: state.contactsPage.totalCount,
-        currentPage: state.contactsPage.currentPage,
-        togglePreloader: state.contactsPage.togglePreloader,
-        progressBtnDisabled: state.contactsPage.progressBtnDisabled
+        contactsData: getContactsData(state),
+        pageSize: getPageSize(state),
+        totalCount: getTotalCount(state),
+        currentPage: getCurrentPage(state),
+        togglePreloader: getTogglePreloader(state),
+        progressBtnDisabled: getProgressBtnDisabled(state)
     }
 }
 

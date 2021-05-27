@@ -21,7 +21,9 @@ const mapStateToProps = (state:StateType) => {
     return{
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        authorizedId: state.authData.id
+        authorizedId: state.authData.id,
+        initialize: state.profilePage.initialize
+
     }
 }
 class ProfileClassContainer extends React.Component<PropsType, StateType> {
@@ -42,7 +44,8 @@ class ProfileClassContainer extends React.Component<PropsType, StateType> {
         // if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return <Profile {...this.props} profile={this.props.profile}
                         status={this.props.status}
-                        updateProfileStatus={this.props.updateProfileStatus}/>
+                        updateProfileStatus={this.props.updateProfileStatus}
+        />
     }
 }
 // const authRedirectComponent = withAuthRedirect(ProfileClassContainer)

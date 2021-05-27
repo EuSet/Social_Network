@@ -5,6 +5,7 @@ export type ProfilePageType = {
     postsData: PostDataType
     profile: profileType | null
     status:string
+    initialize:boolean
 }
 export type profileType = {
     aboutMe: string
@@ -36,7 +37,8 @@ const inintialState = {
         {message: 'It\'s my first post', quantityOfLikes: 17, id: 2},
     ],
     profile: null,
-    status:''
+    status:'',
+    initialize:false
 }
 
 const profileReducer = (state: ProfilePageType = inintialState, action: ProfileActionType):ProfilePageType => {
@@ -75,17 +77,16 @@ export const setProfile = (profile: profileType) => {
 export const setProfileStatus = (status:string) => {
     return {type: SET_PROFILE_STATUS, status} as const
 }
-
 export const getProfile = (userId: number) => {
     return (dispatch: (action: ProfileActionType) => void) => {
-        usersAPI.getUserProfile(userId).then(response => {
+         usersAPI.getUserProfile(userId).then(response => {
                 dispatch(setProfile(response.data))
             })
     }
 }
 export const getProfileStatus = (userId: number) => {
     return (dispatch: (action: ProfileActionType) => void) => {
-        profileAPI.getProfileStatus(userId).then(response => {
+         profileAPI.getProfileStatus(userId).then(response => {
             dispatch(setProfileStatus(response.data))
         })
     }
