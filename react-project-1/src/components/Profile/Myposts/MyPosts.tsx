@@ -9,6 +9,7 @@ export type PropsType = {
 }
 
 const MyPosts = (props:PropsType) => {
+    console.log('myPosts')
     let postsElements = props.postsData.map(p => <Posts key={p.id} message={p.message} quantityOfLikes={p.quantityOfLikes}/>);
     return <div className={s.myPosts}>
         myposts

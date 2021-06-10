@@ -10,8 +10,8 @@ export type AuthType = {
     login:string | null
     isAuth:boolean
 }
-const SET_AUTH_DATA = 'SET_AUTH_DATA'
-const SIGN_IN = 'SIGN_IN'
+const SET_AUTH_DATA = 'auth/SET_AUTH_DATA'
+const SIGN_IN = 'auth/SIGN_IN'
 export type AuthActionType = ReturnType<typeof setAuthData> | ReturnType<typeof signInSocNetwork>
 export const initialState: AuthType = {
     id: null,
@@ -22,7 +22,7 @@ export const initialState: AuthType = {
 
 export const authReducer = (state: AuthType = initialState, action: AuthActionType): AuthType => {
     switch (action.type) {
-        case SET_AUTH_DATA:
+        case "auth/SET_AUTH_DATA":
             return {
                 ...state,
                 id: action.payload.id,
@@ -30,7 +30,7 @@ export const authReducer = (state: AuthType = initialState, action: AuthActionTy
                 email: action.payload.email,
                 isAuth: action.payload.isAuth
              }
-        case "SIGN_IN":
+        case "auth/SIGN_IN":
             return {
                 ...state,
                 id: action.data,

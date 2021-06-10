@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Sidebar.module.css';
-import {NavLink, Route} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import iconMusic from '../../img/icons8-микрофон-64.png';
 import iconMessages from '../../img/icons8-облачко-с-мыслями-48.png';
 import iconProfile from '../../img/icons8-войти-как-пользователь-48 (1).png';

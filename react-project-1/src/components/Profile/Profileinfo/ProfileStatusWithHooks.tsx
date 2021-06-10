@@ -8,9 +8,7 @@ type PropsType = {
 export const ProfileStatusWithHooks:React.FC<PropsType> = ({status, updateProfileStatus}) => {
     const [editMode, setEditMode] = useState(false)
     const [value, setValue] = useState(status)
-    console.log(value)
     useEffect(() => {
-        console.log(value)
         setValue(status)
     },[status])
     const changeMode = () => {

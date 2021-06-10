@@ -2,10 +2,12 @@ import React from 'react';
 import s from './Profile.module.css';
 import ProfileInfo from "./Profileinfo/ProfileInfo";
 import MyPostsContainer from "./Myposts/MyPostsContainer";
-import {profileType} from "../../redux/profile-reducer";
+import {ProfileType} from "../../api/api";
+
+
 
 export type PropsType = {
-    profile:profileType | null
+    profile:ProfileType | null
     status:string
     updateProfileStatus:(status:string) => void
 }

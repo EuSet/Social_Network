@@ -2,16 +2,17 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
-import {getProfile, getProfileStatus, profileType, updateProfileStatus} from "../../redux/profile-reducer";
+import {getProfile, getProfileStatus, updateProfileStatus} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {ProfileType} from "../../api/api";
 
 type PropsType = {
     match:{params:{userId:number}}
     getProfile:(userId:number) => void
     getProfileStatus: (userId:number) => void
     updateProfileStatus:(status:string) => void
-    profile: profileType
+    profile: ProfileType
     status:string
     authorizedId:number
     history:any
@@ -28,6 +29,7 @@ const mapStateToProps = (state:StateType) => {
 }
 class ProfileClassContainer extends React.Component<PropsType, StateType> {
     componentDidMount(): void {
+        console.log(this.props.match)
         let userId = this.props.match.params.userId
         if(!userId) userId = this.props.authorizedId
         if(!userId) this.props.history.push('login')

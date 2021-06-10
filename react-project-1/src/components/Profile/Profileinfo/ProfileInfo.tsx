@@ -1,11 +1,11 @@
 import s from './ProfileInfo.module.css';
 import profileCover from './../../../img/profile-cover.jpg'
-import {profileType} from "../../../redux/profile-reducer";
 import React from "react";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+import {ProfileType} from "../../../api/api";
 
 export type PropsType = {
-    profile:profileType | null
+    profile:ProfileType | null
     status:string
     updateProfileStatus:(status:string) => void
 }

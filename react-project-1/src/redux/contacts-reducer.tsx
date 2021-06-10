@@ -1,4 +1,5 @@
-import {usersAPI} from "../api/api";
+import {ResponseType, usersAPI} from "../api/api";
+import {changeObjMethod} from "../components/Common/utills/changeObjMethod";
 
 export type ContactsPageType = {
     contactsData: ContactsDataType
@@ -48,27 +49,19 @@ const SET_TOTAL_COUNT_CONTACTS = 'SET_TOTAL_COUNT_CONTACTS'
 const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER'
 const TOGGLE_BTN_DISABLED = 'TOGGLE_BTN_DISABLED'
 
-const contactsReducer = (state: ContactsPageType = initialState, action: ContactsActionType) => {
+const contactsReducer = (state: ContactsPageType = initialState, action: ContactsActionType):ContactsPageType => {
     switch (action.type) {
         case FOLLOW:
+            const newFollowData = changeObjMethod(state.contactsData, 'id', action.idUser,  {followed:true} )
             return {
                 ...state,
-                contactsData: state.contactsData.map(c => {
-                    if (action.idUser === c.id) {
-                        return {...c, followed: true}
-                    }
-                    return c
-                })
+                contactsData:newFollowData
             }
         case UN_FOLLOW:
+           const newUnfollowData = changeObjMethod(state.contactsData, 'id', action.idUser,  {followed:false} )
             return {
                 ...state,
-                contactsData: state.contactsData.map(c => {
-                    if (action.idUser === c.id) {
-                        return {...c, followed: false}
-                    }
-                    return c
-                })
+               contactsData: newUnfollowData
             }
         case SET_CONTACTS:
             return {...state, contactsData: action.contacts}
@@ -109,36 +102,38 @@ export const setTogglePreloader = (toggle: boolean) => {
 export const setToggleBtnDisabled = (toggle: boolean, id: number) => {
     return {type: TOGGLE_BTN_DISABLED, toggle, id} as const
 }
-export const getUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: (action: ContactsActionType) => void) => {
+export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: (action: ContactsActionType) => void) => {
+    try {
         dispatch(setTogglePreloader(true))
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(setTogglePreloader(false))
-            dispatch(setContacts(data.items))
-            dispatch(setTotalCountContacts(data.totalCount))
-        })
+        const data = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setTogglePreloader(false))
+        dispatch(setContacts(data.items))
+        dispatch(setTotalCountContacts(data.totalCount))
+    } catch (e) {
+        throw new Error(e)
     }
+
 }
-export const unFollowUserThunk = (id: number) => {
-    return (dispatch: (action: ContactsActionType) => void) => {
-        dispatch(setToggleBtnDisabled(true, id))
-        usersAPI.unFollowUser(id).then(data => {
+
+export const followUnfollowFlow = (id: number, dispatch: (action: ContactsActionType) => void,
+                                   apiMethod: Promise<ResponseType>,
+                                   actionCreator: ContactsActionType) => {
+    dispatch(setToggleBtnDisabled(true, id))
+    apiMethod
+        .then(data => {
             if (data.resultCode === 0) {
-                dispatch(unFollow(id))
+                dispatch(actionCreator)
             }
             dispatch(setToggleBtnDisabled(false, id))
         })
-    }
-}
-export const followUserThunk = (id: number) => {
-    return (dispatch: (action: ContactsActionType) => void) => {
-        dispatch(setToggleBtnDisabled(true, id))
-        usersAPI.followUser(id).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(followNewContact(id))
-            }
-            dispatch(setToggleBtnDisabled(false, id))
+        .catch(() => {
+            throw new Error('some error')
         })
-    }
+}
+export const unFollowUserThunk = (id: number) => (dispatch: (action: ContactsActionType) => void) => {
+    followUnfollowFlow(id, dispatch, usersAPI.unFollowUser(id), unFollow(id))
+}
+export const followUserThunk = (id: number) => async (dispatch: (action: ContactsActionType) => void) => {
+    followUnfollowFlow(id, dispatch, usersAPI.followUser(id), followNewContact(id))
 }
 export default contactsReducer;

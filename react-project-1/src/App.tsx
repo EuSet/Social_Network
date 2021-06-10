@@ -7,7 +7,6 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import React from "react";
-import {withRouter} from "react-router-dom";
 import ContactsContainer from "./components/Contacts/ContactsContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
