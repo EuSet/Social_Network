@@ -16,12 +16,13 @@ type MessagePostType = {
 export type ProfileActionType = ReturnType<typeof addPost>
     | ReturnType<typeof setProfile>
     | ReturnType<typeof setProfileStatus>
+    | ReturnType<typeof savePhotoSuccess>
 
 
 const ADD_POST = 'ADD-POST'
 const SET_PROFILE = 'SET_PROFILE'
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
-
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
 const inintialState = {
     postsData: [
         {message: 'Hi, how are you', quantityOfLikes: 10, id: 1},
@@ -54,6 +55,8 @@ const profileReducer = (state: ProfilePageType = inintialState, action: ProfileA
                 ...state,
                 status: action.status
             }
+        case "SAVE_PHOTO_SUCCESS":
+            return {...state, profile: {...state.profile!, photos:{...action.photos}}}
         default:
             return state
     }
@@ -67,6 +70,19 @@ export const setProfile = (profile: ProfileType) => {
 }
 export const setProfileStatus = (status: string) => {
     return {type: SET_PROFILE_STATUS, status} as const
+}
+export const savePhotoSuccess = (photos: { small: string, large: string }) => {
+    return {type: SAVE_PHOTO_SUCCESS, photos} as const
+
+}
+export const savePhoto = (photos: File) => async (dispatch: (action: ProfileActionType) => void) => {
+    try {
+        const response = await profileAPI.updatePhoto(photos)
+        dispatch(savePhotoSuccess(response.data.data.photos))
+    } catch (e) {
+        throw new Error(e)
+
+    }
 }
 export const getProfile = (userId: number) => async (dispatch: (action: ProfileActionType) => void) => {
     try {

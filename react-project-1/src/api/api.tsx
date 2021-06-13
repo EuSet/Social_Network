@@ -34,6 +34,7 @@ export type ProfileType = {
     }
     userId: number
 }
+
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
@@ -57,6 +58,15 @@ export const profileAPI = {
         return instance.put('/profile/status', {
             status: status
         })
+    },
+    updatePhoto(photo:File) {
+        const formData = new FormData()
+        formData.append("image", photo)
+        return instance.put<ResponseType<{photos:{small:string, large:string}}>>('profile/photo', formData, {
+            headers: {
+               'Content-Type': 'multipart/form-data'
+            }
+        } )
     }
 }
 

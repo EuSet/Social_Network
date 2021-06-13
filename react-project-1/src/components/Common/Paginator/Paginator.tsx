@@ -18,7 +18,7 @@ export const Paginator = (props:PropsType) => {
     return  <div>
         {pages.map(p => {
             return props.currentPage + 3 > p && props.currentPage - 2 < p ?
-                <span onClick={() => props.onPageChanged(p)}
+                <span key={p} onClick={() => props.onPageChanged(p)}
                       className={props.currentPage === p ? s.currentPage : ''}>{p} </span> : ''
         })}
     </div>

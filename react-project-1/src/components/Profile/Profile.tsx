@@ -10,15 +10,20 @@ export type PropsType = {
     profile:ProfileType | null
     status:string
     updateProfileStatus:(status:string) => void
+    savePhoto: (photo: File) => void
+    isOwner:boolean
 }
 
-const Profile = (props:PropsType) => {
+const Profile = React.memo((props:PropsType) => {
     return <div className={s.Profile}>
        <ProfileInfo profile={props.profile}
                     status={props.status}
                     updateProfileStatus={props.updateProfileStatus}
+                    savePhoto={props.savePhoto}
+                    isOwner={props.isOwner}
+
        />
         <MyPostsContainer />
     </div>
-}
+})
 export default Profile;

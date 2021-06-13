@@ -21,3 +21,4 @@ export class LoginClassContainer extends React.Component<PropsType> {
 }
 
 export const LoginContainer = connect(mapStateToProps,{signIn})(LoginClassContainer)
+
