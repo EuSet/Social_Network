@@ -2,7 +2,13 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
-import {getProfile, getProfileStatus, savePhoto, updateProfileStatus} from "../../redux/profile-reducer";
+import {
+    getProfile,
+    getProfileStatus,
+    savePhoto,
+    saveProfileData,
+    updateProfileStatus
+} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {ProfileType} from "../../api/api";
@@ -17,6 +23,7 @@ type PropsType = {
     authorizedId: number
     history: any
     savePhoto: (photo: File) => void
+    saveProfileData:(formData:any) => Promise<any>
 }
 
 const mapStateToProps = (state: StateType) => {
@@ -58,6 +65,7 @@ class ProfileClassContainer extends React.Component<PropsType, StateType> {
                         updateProfileStatus={this.props.updateProfileStatus}
                         savePhoto={this.props.savePhoto}
                         isOwner={!this.props.match.params.userId}
+                        saveProfileData={this.props.saveProfileData}
         />
     }
 }
@@ -67,7 +75,8 @@ class ProfileClassContainer extends React.Component<PropsType, StateType> {
 // export const ProfileContainer = connect(mapStateToProps,{getProfile})(profileContainerWithUrlData)
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile, getProfileStatus, updateProfileStatus, savePhoto}),
+    connect(mapStateToProps, {getProfile, getProfileStatus,
+        updateProfileStatus, savePhoto, saveProfileData}),
     withRouter,
     // withAuthRedirect
 )(ProfileClassContainer)

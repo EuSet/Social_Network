@@ -12,6 +12,7 @@ export type PropsType = {
     updateProfileStatus:(status:string) => void
     savePhoto: (photo: File) => void
     isOwner:boolean
+    saveProfileData:(formData:ProfileType) => Promise<any>
 }
 
 const Profile = React.memo((props:PropsType) => {
@@ -21,6 +22,7 @@ const Profile = React.memo((props:PropsType) => {
                     updateProfileStatus={props.updateProfileStatus}
                     savePhoto={props.savePhoto}
                     isOwner={props.isOwner}
+                    saveProfileData={props.saveProfileData}
 
        />
         <MyPostsContainer />

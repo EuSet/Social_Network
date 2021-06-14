@@ -13,6 +13,7 @@ export type ResponseType<D = {}> = {
     messages: Array<string>,
     data: D
 }
+
 export type ProfileType = {
     aboutMe: string | null,
     contacts: {
@@ -67,6 +68,9 @@ export const profileAPI = {
                'Content-Type': 'multipart/form-data'
             }
         } )
+    },
+    updateProfileData(data:ProfileType) {
+        return instance.put<ResponseType>('/profile', data)
     }
 }
 

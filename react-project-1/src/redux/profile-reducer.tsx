@@ -1,5 +1,7 @@
 import {profileAPI, ProfileType, usersAPI} from "../api/api";
-import {FormAction, reset} from "redux-form";
+import {FormAction, reset, stopSubmit} from "redux-form";
+import {AppThunk, StateType} from "./redux-store";
+import {stringParse} from "../components/Common/utills/parsStringMethod";
 
 export type ProfilePageType = {
     postsData: PostDataType
@@ -56,7 +58,7 @@ const profileReducer = (state: ProfilePageType = inintialState, action: ProfileA
                 status: action.status
             }
         case "SAVE_PHOTO_SUCCESS":
-            return {...state, profile: {...state.profile!, photos:{...action.photos}}}
+            return {...state, profile: {...state.profile!, photos: {...action.photos}}}
         default:
             return state
     }
@@ -84,6 +86,24 @@ export const savePhoto = (photos: File) => async (dispatch: (action: ProfileActi
 
     }
 }
+export const saveProfileData = (formData: ProfileType): AppThunk => async (dispatch, getState: () => StateType) => {
+    const userId = getState().profilePage.profile!.userId
+    try {
+        const response = await profileAPI.updateProfileData(formData)
+        if (response.data.resultCode === 0) {
+            dispatch(getProfile(userId))
+        } else {
+            const contactParse = stringParse(response.data.messages[0])
+            console.log(contactParse)
+            dispatch(stopSubmit('profileData',{"contacts": {[`${contactParse}`]: response.data.messages[0]}}))
+            return Promise.reject(response.data.messages[0]);
+        }
+    } catch (e) {
+        throw new Error()
+
+    }
+}
+
 export const getProfile = (userId: number) => async (dispatch: (action: ProfileActionType) => void) => {
     try {
         const response = await usersAPI.getUserProfile(userId)

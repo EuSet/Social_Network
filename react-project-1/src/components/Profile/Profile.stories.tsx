@@ -15,6 +15,7 @@ export const Template = (props:PropsType) => <Provider store={store}><MemoryRout
              updateProfileStatus={props.updateProfileStatus}
              savePhoto={props.savePhoto}
              isOwner={props.isOwner}
+             saveProfileData={props.saveProfileData}
     /></MemoryRouter></Provider>;
 
 

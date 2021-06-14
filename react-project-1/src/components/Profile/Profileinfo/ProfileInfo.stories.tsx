@@ -14,4 +14,5 @@ export const Template = (props:PropsType) => <MemoryRouter>
                  updateProfileStatus={props.updateProfileStatus}
                  savePhoto={props.savePhoto}
                  isOwner={props.isOwner}
+                 saveProfileData={props.saveProfileData}
     /></MemoryRouter>;
