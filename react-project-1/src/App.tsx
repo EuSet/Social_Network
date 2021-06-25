@@ -1,4 +1,4 @@
-import './App.css';
+import a from './App.module.css';
 import Sidebar from "./components/Sidebar/Sidebar";
 import Footer from "./components/Footer/Footer";
 import Settings from "./components/Settings/Settings";
@@ -32,12 +32,14 @@ class App extends React.Component<AppPropsType> {
         if(!this.props.initialized) return <Preloader/>
         return (
             <BrowserRouter>
-                <div className='container'>
+                <div>
                     <HeaderContainer/>
                     <hr/>
-                    <div className='wrap'>
-                        <Sidebar/>
-                        <div className='content'>
+                    <div className={a.container}>
+                        <div className={a.sideBarWrap}>
+                            <Sidebar/>
+                        </div>
+                        <div className={a.contentWrap}>
                             <React.Suspense fallback={<Preloader/>}>
                             <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                             <Route path='/dialogs' render={() => <DialogsContainer/>}/>

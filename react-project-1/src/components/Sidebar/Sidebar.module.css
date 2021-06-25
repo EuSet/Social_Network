@@ -1,48 +1,45 @@
 .sidebar{
-    width: 200px;
-    min-height: 580px;
     background: #fff;
+    display: flex;
+    flex-direction: column;
 }
 .sidebar .item{
     list-style-type: none;
     margin: 10px 0;
+    padding-right: 10px;
+}
+.itemWrap{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-bottom: -10px;
+}
+.itemWrap span{
+    position: absolute;
+    top:20%;
+    color: #5850EC;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: -10px;
+}
+.activeLink span{
+    color: red;
 }
 .item img{
-    width: 40px;
+    max-width: 40px;
     height: 40px;
     padding-right: 10px;
 }
 hr{
     border: 1px solid #e5e7eb;
 }
-.item a{
-    text-decoration: none;
-    color: #5850EC;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    padding: 0 10px;
-}
-.item a:hover{
-    background: #F5F6F8;
-}
-.item .activeLink{
-    color: darkturquoise;
-}
-@media screen and (max-width:860px) {
-    .sidebar {
-        width: inherit;
-        min-height: 100px;
-        margin-top: 5px;
-        padding-right: 10px;
-        text-align: center;
-    }
-}
-@media screen and (max-width:860px) {
-    .sidebar ul{
+@media screen and (max-width:1065px) {
+    .sidebar{
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+
+    }
+    .itemWrap span{
+        display: none;
     }
 }

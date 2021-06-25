@@ -1,0 +1,36 @@
+.container {
+    height: inherit;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: 25px;
+}
+.sideBarWrap{
+    width: 20%;
+}
+.contentWrap{
+    width: 80%;
+}
+hr {
+    border: 1px solid #e5e7eb;
+}
+
+@media screen and (max-width: 1065px){
+    .container{
+        flex-direction: column;
+    }
+    .sideBarWrap{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .contentWrap{
+        width: 100%;
+    }
+}
+
+
+
+
